@@ -1,42 +1,36 @@
 from flask import render_template, flash, redirect, url_for, request, Response, session
 from app import app
-from app.forms import SimForm
-from app.api_calls import *
-import os, io, json
-# draw figure
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+#from app.forms import SimForm
+#from app.api_calls import *
+#import os, io, json
 
 
 @app.route('/')
 @app.route('/dashboard', methods=['GET', 'POST'])
-def form():
-    form = SimForm()
-    if request.method == 'GET':
-        session.clear()
-        print(len(session))
-    print(len(session))
-    if form.validate_on_submit():
-        flash(f'Building graph for {form.time_span.data} days...')
-        return redirect(url_for('results'))
-    return render_template('form.html', title='Welcome', form=form)
+def home():
+    return render_template('home.html', title='Welcome to Ufarms - Community Agriculture Project')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # Get the user's input from the signup form
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        
+        # Hash the user's password for security
+        hashed_password = generate_password_hash(password)
+        
+        # Store the user's information in a database
+        # You will need to replace this with your own database code
+        db.insert_user(username, email, hashed_password)
+        
+        # Redirect the user to the login page after signup
+        return redirect(url_for('login'))
+    
+    # Render the signup page template for GET requests
+    return render_template('signup.html')
 
 @app.route('/about')
 def about():
 	return render_template('about.html', title='About')
-
-@app.route('/results', methods=['GET', 'POST'])
-def handle_data():
-    output, sunrise, sunset = loop_data_collect(int(request.form['time_span']), request.form['location'], request.form['date'])
-    listed, avgs = process(output, int(request.form['time_span']), sunrise, sunset)
-    for idx, i in enumerate(listed):
-        session[str(idx)] = i
-    print(len(session))
-    return render_template('results.html', title='Sunny Day(s)', avgs=avgs)
-
-
-@app.route('/plot.png')
-def plot_png():
-    fig = create_figure(session)
-    output = io.BytesIO()
-    FigureCanvas(fig).print_png(output)
-    return Response(output.getvalue(), mimetype='image/png')

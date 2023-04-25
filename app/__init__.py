@@ -8,4 +8,4 @@ app.config.from_object(Config)
 bootstrap = Bootstrap(app)
 app.secret_key = os.urandom(24)
 
-from app import routes, errors
+from app import routes, errors #py files that do things
