@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
+    <meta name="description" content="A community based agriculture marketplace and social network">
+    <meta name="keywords" content="community, agriculture, map, marketplace, green, network, social">
+    <meta name="author" content="Mark Ehler">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css') }}">
     {% if title %}
-        <title>Solar Dashboard - {{ title }}</title>
+        <title>Ufarms - {{ title }}</title>
     {% else %}
-        <title>Solar Dashboard</title>
+        <title>Ufarms</title>
     {% endif %}
 </head> 
 <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Sol Sim - Solar Energy Tool</a>
+          <a class="navbar-brand mr-4" href="/">Ufarms - Community Agriculture</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -31,6 +29,7 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="/">Home</a>
               <a class="nav-item nav-link" href="/about">About</a>
+              <a class="nav-item nav-link" href="/mailing">Mailing List</a>
             </div>
           </div>
         </div>
@@ -52,5 +51,6 @@
         <div class="col-md-8">
           {% block app_content %}{% endblock app_content%}
         </div>
-
     </main>
+  </body>
+</html>

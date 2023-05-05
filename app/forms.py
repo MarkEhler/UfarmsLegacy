@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, RadioField
+from wtforms import StringField, SubmitField, RadioField, BooleanField
 from wtforms.validators import DataRequired, Length
 from wtforms import DateField
 
@@ -35,3 +35,30 @@ class StaticForm(FlaskForm):
     time_zone = StringField('Timezone', description='GMT+/-',
         validators=[Length(min=2, max=3)],
         render_kw={'placeholder': '-4 for EST, -6 for MST'})
+
+class SignUpForm(FlaskForm):
+    first_name = StringField('First Name', description = 'First Name',
+        validators= [DataRequired()])
+    last_name = StringField('Last Name', description = 'First Name',
+        validators= [DataRequired()])
+    email = StringField('Email', description = 'Email',
+        validators= [DataRequired()])
+    consent = BooleanField('I want to recieve updates on the progress of Ufarms community agriculture project',
+        validators= [DataRequired()])
+    submit = SubmitField('Sign up')
+    '''
+    password = StringField('Password', description = 'At least 7 characters number and symbol',
+        validators= [])#should be a dollar ammount float/integer
+    password_confirm = StringField('Repeat Password', description = 'password confirm',
+        validators= [])#should be a dollar ammount float/integer
+    
+    # Hash the user's password for security
+    hashed_password = generate_password_hash(password)
+    
+    # Store the user's information in a database
+    # You will need to replace this with your own database code
+    db.insert_user(username, email, hashed_password)
+    '''
+    news_updates = RadioField('Does the utility provider charge for peak hours?',
+        description = 'sign up', choices=[('Yes', 1, "No", 0)], validators=[DataRequired()])
+    #submit = SubmitField('Submit')
