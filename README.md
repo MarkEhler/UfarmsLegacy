@@ -3,18 +3,17 @@
 <ul>
     <li> app/ -- flask package files</li>
     <li> run.py -- init file for flask package </li>
-    <li> <a href="https://youtu.be/MeP5QFYhSHY"> Demo Video </a> </li>
+    <li> <a href="#"> Demo Video </a> </li>
 
 </ul>
-<h2> Clearing the Cloudy Skies of Solar Energy </h2>
-    Power is something we, as Americans take for granted.  "Where does it come from when I flip on the switch?" Isn't a question most of us think about, nor should we.  Our children don't have to think about the billion dollar industry that supplies them with air conditioned schools.  We ourselves have become addicted, not so much to screens, as the passage of electrons through our devices that lights them up.  It's no wonder that the energy debate is a polarizing one.
+<h2>  </h2>
     <br><br>
-    At the time of writing this gas and oil companies are advertising that renewable energy's main detraction is it's unreliability.  I think this is a false perception.  If there is one thing I've learned from working with weather data, it's that people will never beat the machine in recalling historical weather data. It's fortunate that we have decades of weather data recorded; and even, solar energy data.  Energy could be said to be surpassing other basic human rights in terms of profitability, and ethics of distribution becomes more and more center stage.<br><br>
-    My goal with this project was to create a tool that could be used to give a machine informed plot of data for a specific location using solar and weather data to inform it's estimation. More insight into the ethos of this project can be found on my <a href="https://markehler.github.io/sol-sim_-_solar_energy_ethos"> blog </a> but the goal of this abtract is to familiarize you with the technical details of this app.
-    My goal was to develop a prototype that could be further developed by a solar installation company or a tech service company providing renewable energy installers with tools to grow their business.  Similar products as this one do exist.  <a href="https://www.google.com/get/sunroof"> Project Sunroof </a> by Google and <a href="https://www.helioscope.com/"> Helioscope </a> a paid for software solution by Folsom Labs.  While Project Sunroof has taken account for what the industry calls a "shade analysis", it does not seem to adjust for Latitude and weather factors.  It's my belief that the two apps could be used in tandem by solar hopefuls to inform their renewable decision.
+    <br><br>
+    My goal with this project was to bring people together around caring for the land they maintain.  To strengthen the connections in the community.  To create a more accessible network of local and hobbiest food and take a bite out of big food industries. <a href="https://markehler.github.io/sol-sim_-_solar_energy_ethos"> blog </a> 
+    
 <br>
 <br>
-<h2> It's Simple Astronomy </h2>
+<h2> It take an Ecosystem </h2>
 <h3> Data Harvested Piecemeal </h3>
     All data was collected individually from <a href="https://midcdmz.nrel.gov/">NREL</a> test sites across the United States. This took a fair amount of cajoling because each site uniquely labeled their data, most of them sensing unique values from one another that had to be converted or ignored.
     <br>
@@ -26,12 +25,18 @@
     The Sun, undeniably the most important factor in generating solar energy, is
 so reliable that astronomers can calculate where the great ball of fire will be in the sky at any time for any place.  This produces wonderfully normal distributions of the sun's location in the sky.  After doing feature analysis on some decision tree models, it is clear that the most important thing in solar production is where the sun is located.  The industry knows this, so when installing new solar panels we look for what is called a 'solar window', a box in the sky that the sun travels through most of the days throughout most of the year. <br>  
 <a href="https://imgur.com/GkfSb4l"><img src="https://i.imgur.com/GkfSb4l.png" title="feature heatmap" width="450" height="300", STYLE = "float: center;" /></a>
-<h3> Unexpected Scattered Showers </h3>
-    While working on this project there were a few sticking points.  As it turns out, there are two ways of calculating Zenith angle.  This project uses topocentric, meaning that there is no account for the sun's angle above or below the horizon, it will look the same either way.  The model does an okay job accounting for this but nonetheless night time values were silenced on the final graph.  Certain categorical features could be expressed with their own columns for getter accuracy but since I want to app to predict on locations that aren't present in the dataset, they have been left as float variables rather than one hot encoded as i would like to do.  <br><br>    
-       I learned on this project that my most accurate model upon initial training, which was accurate to 80 Watts per meter squared, produced downright wacky plots when tested against newly gathered data user input.<a href="https://imgur.com/wQ8AgxS"><img src="https://i.imgur.com/wQ8AgxS.png" title="wonky data" width="375" height="200", STYLE = "float: left;" /></a> <br>**Why was that?**<br>  Accuracy, as it turns out, isn't everything.  I found that my dataset could not possibly account for all the factors accounting for solar energy from entirely new locations.  In other words, my model had overfit.  As I slackened the accuracy by 15 - 20 Watts per meter squared I found that my plots looked a lot more reasonable.  What's more important, they still seemed responsive to the weather.  In the end I was able to reclaim this accuracy by fine tuning my data, not my parameters, a key lesson in garbage in garbage out.  The average error is resting at 77W/m^2 after 3 cross validations at the time of publishing. <br>
-<h3> The Sun Never Sleeps When it's Light Out </h3>
-    I'm still suspicious of my final model and would like to revise it before shipping as a for-profit tool.  What I would expect would be a normal distribution of energy production.  The hours from 9am to 3pm are known to produce peak power for energy that tapers while the sun is rising and setting.  I had the solar equivalent of unhealthy self-body-image upon launching my tool below.<br>
+<h3> If nothing is eating your plants they arn't interacting with the ecology </h3>
+    <br><br>    
+       <a href="https://imgur.com/wQ8AgxS"><img src="https://i.imgur.com/wQ8AgxS.png" title="wonky data" width="375" height="200", STYLE = "float: left;" /></a> 
+       <br>
+<h3> Call to action </h3>
+    <br>
     <a href="https://imgur.com/QLlD4tR"><img src="https://i.imgur.com/GZuaz1N.png" title="first working plot" width="85%", location = "right" /></a>
     <a href="https://imgur.com/wF2MhIn"><img src="https://i.imgur.com/wF2MhIn.png" title="test site calendar" width="85%", location = "left" /></a>
-    Above is a calendar from one of the test sites I used for sourcing my data.  The three lines represent different types of received solar radiation.  The one we are most concerned with is the red line. Knowing that I'm under reporting on weather data,  I'm left with the astronomy of the sun as my most important features.  I'm hard on myself but happy with this as a live app prototype.  My main goal with this project was to educate, so if the sim needs a little refinement I can easily work on it.  Rather, the focus should be on this apps ability to take complex astronomy and apply for practical use.  I should hope that the app will speak for itself in that regard.<br><br>
-    The natural gas industry will boast that their fuel burning plants are reliable.  I would argue that the sun that has reliably powered life on this planet for eons will still be reliable even when the coal plants come tumbling down at the end of their shelf life. 
+    <br><br>
+    <div class="btn-group open">
+        <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
+        <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
+        <a class="btn btn-default toggle-text" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span class="hidden"> m.ehler@comcast.net </span></a>
+    </div>
+    <!-- add in contact buttons and a footer -->
