@@ -3,14 +3,25 @@
 {% extends "layout.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block app_content %}
-    <h2>Community Agriculture App</h2>
+
       <div class="map">
-      
+        <div class="container">
+          <div class="row">
+            <div class="col text-center">
+              <h2>Community Agriculture Project</h2>
+              <br>
+              <a class="btn btn-success" href="/map"><i class="fa fa-leaf"></i></a>
+              <p>under development</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="links">
-        <a class="nav-item nav-link" href="/">Home</a>
-        <a class="nav-item nav-link" href="/signup">Mailing List</a>
+
       </div>
+      <div><br>
+        <img src="/static/banner.png" alt="planting_trees", width="90%", location = "center">
+    </div>
 {% endblock %}
     <!-- Date : <input type="text" id=date>  -->
 
