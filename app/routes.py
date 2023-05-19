@@ -15,7 +15,8 @@ def home():
 
 @app.route('/map')
 def map():
-    get_map()
+    print(os.getcwd(), "LOOK HERE")
+    get_map(os.path.join(.settings.DATA_PATH, "hosts_w_locations.csv"))
     return render_template('formatted_map.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
      
 @app.route('/signup', methods=['GET', 'POST'])

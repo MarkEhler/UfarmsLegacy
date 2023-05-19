@@ -5,10 +5,10 @@ import pandas as pd
 import branca
 
 # make into class todo
-def get_map():
+def get_map(path):
 # get cached host nodes
-    print(os.getcwd(), "LOOK HERE")
-    df = pd.read_csv(os.getcwd() + "/hosts_w_locations.csv")
+    
+    df = pd.read_csv(path)
     print(df)
     locations = []
     lats = []
