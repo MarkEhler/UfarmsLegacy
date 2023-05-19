@@ -8,7 +8,7 @@ import branca
 def get_map():
 # get cached host nodes
 # \\wsl.localhost\Ubuntu\home\markee\ufarms\Ufarms\app\data\hosts_w_locations.csv
-    df = pd.read_csv("/data/hosts_w_locations.csv")
+    df = pd.read_csv("hosts_w_locations.csv")
     print(df)
     locations = []
     lats = []
