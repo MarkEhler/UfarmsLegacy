@@ -9,10 +9,7 @@
 <h2>  </h2>
     <br><br>
     <br><br>
-    My goal with this project was to bring people together around caring for the land they maintain.  To strengthen the connections in the community.  To create a more accessible network of local and hobbiest food and take a bite out of big food industries. Please add your name to my mailing list for updates
-    <body>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true" width="640" height="988" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-    </body> 
+    My goal with this project was to bring people together around caring for the land they maintain.  To strengthen the connections in the community.  To create a more accessible network of local and hobbiest food and take a bite out of big food industries. It would help the development of this project if you signed up for the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
     
 <br>
 <br>
