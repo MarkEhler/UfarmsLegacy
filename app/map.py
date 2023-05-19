@@ -7,7 +7,8 @@ import branca
 # make into class todo
 def get_map():
 # get cached host nodes
-    df = pd.read_csv(settings.DATA_PATH + 'hosts_w_locations.csv')
+# \\wsl.localhost\Ubuntu\home\markee\ufarms\Ufarms\app\data\hosts_w_locations.csv
+    df = pd.read_csv("app\data\hosts_w_locations.csv")
     print(df)
     locations = []
     lats = []
