@@ -8,7 +8,7 @@ import branca
 def get_map():
 # get cached host nodes
     print(os.getcwd(), "LOOK HERE")
-    df = pd.read_csv(os.getcwd() + "hosts_w_locations.csv")
+    df = pd.read_csv(os.getcwd() + "/hosts_w_locations.csv")
     print(df)
     locations = []
     lats = []
