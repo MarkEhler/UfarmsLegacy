@@ -15,10 +15,10 @@ def home():
 
 @app.route('/map')
 def map():
-    get_map(settings.DATA_PATH)
-    return render_template('map.html', template_folder=settings.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
+    get_map()
+    return render_template('formatted_map.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
      
-@app.route('/survey', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET', 'POST'])
 def survey():
     form = SignUpForm()
     if form.validate_on_submit():
@@ -39,15 +39,15 @@ def survey():
         return redirect(url_for('home'))
     
     # Render the signup page template for GET requests
-    return render_template('signup.html', template_folder=settings.TEMPLATE_PATH, title='Email Signup')
+    return render_template('signup.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/about')
 def about():
-	return render_template('about.html', title='About')
+	return render_template('about.html', title='Ufarms - About')
 
 @app.route('/contact')
 def contact():
-	return render_template('contact.html', title='Contact')
+	return render_template('contact.html', title='Ufarms - Contact')
 
 @app.route('/mailing')
 def mailing():
@@ -55,11 +55,11 @@ def mailing():
     if rand_int == 1:
         return redirect(url_for('mailing2'))
     else:
-    	return render_template('mailinglist.html', title='Mailbox')
+    	return render_template('mailinglist.html', title='Ufarms - Mailbox')
 
 @app.route('/mailing2')
 def mailing2():
-	return render_template('mailinglist2.html', title='Mailbox')
+	return render_template('mailinglist2.html', title='Ufarms - Mailbox')
 
 @app.route('/thankyou')
 def thankyou():
