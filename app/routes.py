@@ -65,3 +65,8 @@ def mailing2():
 @app.route('/thankyou')
 def thankyou():
 	return render_template('submit_confirm.html', title='Email Recieved')
+
+@app.route('/csv/hosts_w_locations')
+def serve_csv():
+    filename = 'hosts_w_locations'
+    return send_from_directory('static/', filename, as_attachment=True)
