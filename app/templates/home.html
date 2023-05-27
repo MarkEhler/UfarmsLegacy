@@ -1,36 +1,10 @@
-<!-- floating code for the map box -->
-
 {% extends "layout.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block app_content %}
 <head>
   <title>Copy Text to Clipboard</title>
 </head>
-<body>
-  <span id="textToCopy">Text to copy</span>
-  <button onclick="copyToClipboard()">Copy</button>
 
-  <script>
-    function copyToClipboard() {
-      // Create a temporary input element
-      var tempInput = document.createElement("input");
-
-      // Set the value of the input element to the text inside the span
-      tempInput.value = document.getElementById("textToCopy").innerText;
-
-      // Append the input element to the document
-      document.body.appendChild(tempInput);
-
-      // Select the text inside the input element
-      tempInput.select();
-
-      // Copy the selected text to the clipboard
-      document.execCommand("copy");
-
-      // Remove the temporary input element
-      document.body.removeChild(tempInput);
-    }
-  </script>
 </body>
       <div class="map">
         <div class="container">

@@ -30,7 +30,7 @@
                   <div class="btn-group open">
                     <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
                     <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
-                    <a class="btn btn-default toggle-text" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span class="hidden"> m.ehler@comcast.net </span></a>        
+                    <a class="btn btn-default" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span id="textToCopy" onclick="copyToClipboard()"> m.ehler@comcast.net </span></a>        
                 </div>
               </div>
             </div> 
@@ -41,67 +41,27 @@
         <br>
         <br>
         
-
-            <!-- Font Awesome 
-        <i class="fa fa-leaf" aria-hidden="true"></i>
-        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-        <i class="fa fa-quote-left fa-3x fa-pull-left fa-border" aria-hidden="true"></i>
-        <ul class="fa-ul">
-            <li><i class="fa-li fa fa-check-square"></i>List icons</li>
-            <li><i class="fa-li fa fa-check-square"></i>can be used</li>
-            <li><i class="fa-li fa fa-spinner fa-spin"></i>as bullets</li>
-            <li><i class="fa-li fa fa-square"></i>in lists</li>
-            <i class="fa fa-coffee" aria-hidden="true"></i>
-          </ul>
-        
-        <a class="btn btn-danger" href="#">
-  <i class="fa fa-trash-o fa-lg"></i> Delete</a>
-<a class="btn btn-default btn-sm" href="#">
-  <i class="fa fa-cog"></i> Settings</a>
-
-<a class="btn btn-lg btn-success" href="#">
-  <i class="fa fa-flag fa-2x pull-left"></i> Font Awesome<br>Version 4.7.0</a>
-
-<div class="btn-group">
-  <a class="btn btn-default" href="#">
-    <i class="fa fa-align-left" title="Align Left"></i>
-  </a>
-  <a class="btn btn-default" href="#">
-    <i class="fa fa-align-center" title="Align Center"></i>
-  </a>
-  <a class="btn btn-default" href="#">
-    <i class="fa fa-align-right" title="Align Right"></i>
-  </a>
-  <a class="btn btn-default" href="#">
-    <i class="fa fa-align-justify" title="Align Justify"></i>
-  </a>
-</div>
-
-bootstrap form icons
-
-<div class="input-group margin-bottom-sm">
-  <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-  <input class="form-control" type="text" placeholder="Email address">
-</div>
-<div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-  <input class="form-control" type="password" placeholder="Password">
-</div>
-
-<div class="btn-group open">
-  <a class="btn btn-primary" href="#"><i class="fa fa-user fa-fw"></i> User</a>
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <span class="fa fa-caret-down" title="Toggle dropdown menu"></span>
-  </a>
-  <ul class="dropdown-menu">
-    <li><a href="#"><i class="fa fa-pencil fa-fw"></i> Edit</a></li>
-    <li><a href="#"><i class="fa fa-trash-o fa-fw"></i> Delete</a></li>
-    <li><a href="#"><i class="fa fa-ban fa-fw"></i> Ban</a></li>
-    <li class="divider"></li>
-    <li><a href="#"><i class="fa fa-unlock"></i> Make admin</a></li>
-  </ul>
-</div>
--->
+        <script>
+          function copyToClipboard() {
+            // Create a temporary input element
+            var tempInput = document.createElement("input");
+      
+            // Set the value of the input element to the text inside the span
+            tempInput.value = document.getElementById("textToCopy").innerText;
+      
+            // Append the input element to the document
+            document.body.appendChild(tempInput);
+      
+            // Select the text inside the input element
+            tempInput.select();
+      
+            // Copy the selected text to the clipboard
+            document.execCommand("copy");
+      
+            // Remove the temporary input element
+            document.body.removeChild(tempInput);
+          }
+        </script>
 <div>
   <img src="/static/banner.png" alt="planting_trees", width="100%", location = "center">
 </div>

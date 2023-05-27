@@ -1,24 +1,25 @@
-from flask import render_template, flash, redirect, url_for, request, Response, session, Flask
+from flask import render_template, flash, redirect, url_for, request, Response, session, Flask, send_from_directory
 from app import app
 from werkzeug.security import generate_password_hash
 from app.forms import SignUpForm
 from app.map import get_map
-#from app.api_calls import *
 import os, io, json, random
 import settings
+from markupsafe import Markup
+
 
 
 @app.route('/')
 @app.route('/home', methods=['GET', 'POST'])
-def home():
+def home():    
     return render_template('home.html', template_folder=settings.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
 
 @app.route('/map')
-def map():
-    print(os.getcwd(), "LOOK HERE")
-    get_map(os.path.join(settings.DATA_PATH, "hosts_w_locations.csv"))
+def show_map():
+    get_map()
     return render_template('formatted_map.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
-     
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def survey():
     form = SignUpForm()
@@ -44,7 +45,8 @@ def survey():
 
 @app.route('/about')
 def about():
-	return render_template('about.html', title='Ufarms - About')
+    #flash('email copied to clipboard')
+    return render_template('about.html', title='Ufarms - About')
 
 @app.route('/contact')
 def contact():
@@ -53,6 +55,7 @@ def contact():
 @app.route('/mailing')
 def mailing():
     rand_int = random.randint(1, 2) #todo create a counter that counts to 18 before directing all traffic to the google
+    #flash('email copied to clipboard')
     if rand_int == 1:
         return redirect(url_for('mailing2'))
     else:
@@ -60,13 +63,27 @@ def mailing():
 
 @app.route('/mailing2')
 def mailing2():
-	return render_template('mailinglist2.html', title='Ufarms - Mailbox')
+    #flash('email copied to clipboard')
+    return render_template('mailinglist2.html', title='Ufarms - Mailbox')
 
 @app.route('/thankyou')
 def thankyou():
-	return render_template('submit_confirm.html', title='Email Recieved')
+    flash('Thanks!')
+    return render_template('submit_confirm.html', title='Email Recieved')
 
 @app.route('/csv/hosts_w_locations')
 def serve_csv():
     filename = 'hosts_w_locations'
-    return send_from_directory('static/', filename, as_attachment=True)
+    return send_from_directory('data/', filename, as_attachment=True)
+
+@app.route('/profile')
+def profile():
+    flashed_message = Markup('<strong>This is a flashed message!</strong>')
+    flash(flashed_message)
+    return render_template('profile.html', title='Test Profile Page')
+
+@app.route('/show_message')
+def show_message():
+    flashed_message = Markup('<strong>This is a flashed message!</strong>')
+    flash(flashed_message)
+    return redirect(url_for('profile'))

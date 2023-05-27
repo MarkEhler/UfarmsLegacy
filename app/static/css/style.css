@@ -94,3 +94,19 @@ div#loading {
     background: url(ajax-loader.gif) no-repeat;
     cursor: wait;
     }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 20;
+  padding: 20;
+  background-color: #f2f2f2;
+}
+
+#container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}

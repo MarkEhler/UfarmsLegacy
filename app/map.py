@@ -2,14 +2,33 @@ import folium
 import os, csv, base64, random, settings
 from statistics import mean, pstdev
 import pandas as pd
-import branca
+#import branca
+from azure.storage.blob import BlobServiceClient
 
 # make into class todo
-def get_map(path):
-# get cached host nodes
+def get_map():
+    # Connect to your Azure Blob Storage
+# Connect to your Azure Blob Storage
+    connection_string = "DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
+    credentail = "z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew=="
+    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
     
-    df = pd.read_csv(path)
-    print(df)
+    try:
+        # Specify the container name and blob name of your CSV file in Azure Blob Storage
+        container_name = 'mnt'
+        blob_name = 'hosts_w_locations.csv'
+
+        # Download the CSV file to a local temporary file
+        local_file = '/tmp/hosts_w_locations.csv'
+        blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
+        with open(local_file, "wb") as file:
+            file.write(blob_client.download_blob().readall())
+
+        # Read the CSV file
+        df = pd.read_csv(local_file)
+    except:
+        print('error: ')
+    
     locations = []
     lats = []
     lons = []
@@ -53,6 +72,7 @@ def get_map(path):
             resolution, width, height = 20, 12, 7
             encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
             html = '<img src="data:image/png;base64,{}" width="180" height="110">'.format
+            #copy email on click button request todo
             iframe = folium.IFrame(f"<h3>{row['name']}</h3><h4>Contact: {row.loc['contact']} <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}", width=(width*resolution)+20, height=(height*resolution)+100)
             popup = folium.Popup(iframe, max_width=640, max_height=360 )
             marker = folium.Marker(location=[row.loc['privacy_lat'], row.loc['privacy_lon']], popup=popup, icon=icon)
