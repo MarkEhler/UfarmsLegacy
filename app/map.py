@@ -10,14 +10,12 @@ def get_map():
     # Connect to your Azure Blob Storage
 # Connect to your Azure Blob Storage
     connection_string = "DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
-    credentail = "z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew=="
     blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-    
+
     try:
         # Specify the container name and blob name of your CSV file in Azure Blob Storage
         container_name = 'mnt'
         blob_name = 'hosts_w_locations.csv'
-
         # Download the CSV file to a local temporary file
         local_file = '/tmp/hosts_w_locations.csv'
         blob_client = blob_service_client.get_blob_client(container=container_name, blob=blob_name)
