@@ -45,7 +45,6 @@ def survey():
 
 @app.route('/about')
 def about():
-    #flash('email copied to clipboard')
     return render_template('about.html', title='Ufarms - About')
 
 @app.route('/contact')
@@ -71,19 +70,16 @@ def thankyou():
     flash('Thanks!')
     return render_template('submit_confirm.html', title='Email Recieved')
 
-@app.route('/csv/hosts_w_locations')
-def serve_csv():
-    filename = 'hosts_w_locations'
-    return send_from_directory('data/', filename, as_attachment=True)
-
 @app.route('/profile')
 def profile():
-    flashed_message = Markup('<strong>This is a flashed message!</strong>')
+    flashed_message = Markup('<strong>Copied to clipboard</strong>')
     flash(flashed_message)
     return render_template('profile.html', title='Test Profile Page')
 
-@app.route('/show_message')
-def show_message():
-    flashed_message = Markup('<strong>This is a flashed message!</strong>')
+
+
+@app.route('/redirect_about')
+def redirect_about():
+    flashed_message = Markup('<strong>Copied to clipboard</strong>')
     flash(flashed_message)
-    return redirect(url_for('profile'))
+    return redirect(url_for('about'))

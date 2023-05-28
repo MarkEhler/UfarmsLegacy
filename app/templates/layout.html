@@ -42,6 +42,20 @@
         document.body.removeChild(tempInput);
       }
     </script>
+    <!-- On Click copy to clipboard and redirect to url -->
+    <script>
+      function redirectToURLAndCopy() {
+        // Create a temporary input element
+        var tempInput = document.createElement("input");
+        tempInput.value = document.getElementById("textToCopy").innerText;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+        // Redirect to the URL
+        window.location.href = "{{ url_for('redirect_about') }}";
+      }
+    </script>
     <!-- On Click Flash Script -->
     <script>
       function showMessage() {
@@ -86,23 +100,22 @@
           </div>
         </div>
       </nav> 
-    </header>
+    </header>        
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+                <li>{{ message | safe }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  {% endwith %}
     <main role="main" class="container">
       <hr>
       <div class="row">
-
         <div class="col-md-8">
           {% block app_content %}{% endblock app_content%}
         </div>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              <ul class="flashes">
-                  {% for message in messages %}
-                      <li>{{ message | safe }}</li>
-                  {% endfor %}
-              </ul>
-          {% endif %}
-        {% endwith %}
       </div>
     </main>
   </body>

@@ -1,15 +1,13 @@
 {% extends "layout.html" %}
 {% block title %} User Profile {% endblock %}
 {% block app_content %}
-
+<head>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f2f2f2;
+    h1 {
+      text-align: center;
+      margin: 10px 0;
     }
-    
+
     #container {
       max-width: 800px;
       margin: 20px auto;
@@ -26,17 +24,10 @@
       object-fit: cover;
       margin: 0 auto;
       display: block;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
     
-    h1 {
-      text-align: center;
-      margin: 10px 0;
-    }
-    
-    p {
-      margin: 5px 0;
-    }
+
     
     .profile-section {
       margin-bottom: 20px;
@@ -55,11 +46,12 @@
     }
   </style>
 </head>
+
 <body>
   <div id="container">
     <img id="profile-image" src="static/mark_pic.jpg" alt="Profile Image">
     <h1>Mark Ehler</h1>
-    
+    <br>
     <div class="profile-section">
       <h2>About Me</h2>
       <p>Let's grow together.</p>
@@ -83,10 +75,8 @@
         <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
         <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
         <a class="btn btn-default" onclick="copyToClipboard()" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span id="textToCopy"> m.ehler@comcast.net </span></a>        
-    </div>
+      </div>
     </div>
   </div>
 
-  <span id="textToCopy">Text to copy</span>
-  <button onclick="copyToClipboard()">Copy</button>
 {% endblock app_content %}
