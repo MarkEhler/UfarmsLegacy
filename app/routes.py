@@ -10,9 +10,6 @@ from markupsafe import Markup
 
 
 @app.route('/')
-def index():
-    app_directory = app.root_path
-
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
     return render_template('home.html', template_folder=settings.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
