@@ -69,8 +69,12 @@ def get_map():
 
             #print log for debug
             print(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'))
-            encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
-            #'/Ufarms/app/static/plot2.png'
+            try:
+                encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
+            except:
+                encoded = base64.b64encode(open(f'static/plot{random.randint(1, 4)}.png', 'rb').read())
+            
+                #'/Ufarms/app/static/plot2.png'
             #'/home/markee/ufarms/Ufarms/app/static/plot4.png'
             #'os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png')'
             html = '<img src="data:image/png;base64,{}" width="180" height="110">'.format
