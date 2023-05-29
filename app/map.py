@@ -100,7 +100,7 @@ def get_map():
                         weigth=1,
                         color=icon_color,
                         fill=True).add_to(m)
-    m.save(f'{os.path.dirname(dn)}/templates/map.html')
+    m.save('app/app/templates/map.html')
     # Create custom marker icon
     #logoIcon = folium.features.CustomIcon('{STATIC_PATH}', icon_size=(50, 50))
 

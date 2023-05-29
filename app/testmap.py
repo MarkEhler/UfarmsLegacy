@@ -11,7 +11,7 @@ from azure.storage.blob import BlobServiceClient
 
 connection_string = "DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-fname = "map.py"
+fname = "profile.html"
 dn = os.path.abspath(fname)
 print(dn)
 print(os.path.dirname(dn), end="\n:)\n")

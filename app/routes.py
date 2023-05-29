@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, Response, session, Flask, send_from_directory
+from flask import render_template, flash, redirect, url_for, request, Response, session, Flask, send_from_directory, g
 from app import app
 from werkzeug.security import generate_password_hash
 from app.forms import SignUpForm
@@ -12,7 +12,6 @@ from markupsafe import Markup
 @app.route('/')
 def index():
     app_directory = app.root_path
-    return f"App directory: {app_directory}"
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
