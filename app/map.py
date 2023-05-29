@@ -69,6 +69,11 @@ def get_map():
 
             #print log for debug
             print(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'))
+            print(settings.APP_PATH)
+            fname = "plot1.png"
+            dn = os.path.abspath(fname)
+            print(dn)
+            print(os.path.dirname(dn), end="\n:)\n")
             try:
                 encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
             except:
