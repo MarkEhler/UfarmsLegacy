@@ -69,13 +69,12 @@ def get_map():
             icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
 
             #print log for debug
-            print(app.root_path)
-            fname = "plot1.png"
+
+            fname = "map.py"
             dn = os.path.abspath(fname)
-            print(dn)
             print(os.path.dirname(dn), end="\n:)\n")
             try:
-                encoded = base64.b64encode(open(os.path.join(app.root_path,f'/static/plot{random.randint(1, 4)}.png'), 'rb').read())
+                encoded = base64.b64encode(open(os.path.join(os.path.dirname(dn),f'/static/plot{random.randint(1, 4)}.png'), 'rb').read())
             except:
                 encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
             
@@ -101,7 +100,7 @@ def get_map():
                         weigth=1,
                         color=icon_color,
                         fill=True).add_to(m)
-    m.save(f'{app.root_path}/templates/map.html')
+    m.save(f'{os.path.dirname(dn)}/templates/map.html')
     # Create custom marker icon
     #logoIcon = folium.features.CustomIcon('{STATIC_PATH}', icon_size=(50, 50))
 

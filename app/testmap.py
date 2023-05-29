@@ -1,6 +1,5 @@
 import folium
 import os, csv, base64, random
-from app import settings
 from statistics import mean, pstdev
 import pandas as pd
 #import branca
@@ -9,10 +8,13 @@ from azure.storage.blob import BlobServiceClient
 
 # Connect to your Azure Blob Storage
 # Connect to your Azure Blob Storage
-print(settings.APP_PATH)
+
 connection_string = "DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
 blob_service_client = BlobServiceClient.from_connection_string(connection_string)
-
+fname = "map.py"
+dn = os.path.abspath(fname)
+print(dn)
+print(os.path.dirname(dn), end="\n:)\n")
 try:
     # Specify the container name and blob name of your CSV file in Azure Blob Storage
     container_name = 'mnt'
