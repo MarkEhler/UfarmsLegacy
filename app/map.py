@@ -2,6 +2,7 @@ import folium
 import os, csv, base64, random, settings
 from statistics import mean, pstdev
 import pandas as pd
+import app
 #import branca
 from azure.storage.blob import BlobServiceClient
 
@@ -68,14 +69,13 @@ def get_map():
             icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
 
             #print log for debug
-            print(os.path.join(g.app_path,f'plot{random.randint(1, 4)}.png'))
-            print(g.app_path)
+            print(app.root_path)
             fname = "plot1.png"
             dn = os.path.abspath(fname)
             print(dn)
             print(os.path.dirname(dn), end="\n:)\n")
             try:
-                encoded = base64.b64encode(open(os.path.join(g.app_path,f'plot{random.randint(1, 4)}.png'), 'rb').read())
+                encoded = base64.b64encode(open(os.path.join(app.root_path,f'/static/plot{random.randint(1, 4)}.png'), 'rb').read())
             except:
                 encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
             
@@ -101,7 +101,7 @@ def get_map():
                         weigth=1,
                         color=icon_color,
                         fill=True).add_to(m)
-    m.save(f'{g.app_path}/templates/map.html')
+    m.save(f'{app.root_path}/templates/map.html')
     # Create custom marker icon
     #logoIcon = folium.features.CustomIcon('{STATIC_PATH}', icon_size=(50, 50))
 
