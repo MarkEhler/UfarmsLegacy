@@ -77,7 +77,7 @@ def get_map():
             try:
                 encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
             except:
-                encoded = base64.b64encode(open(f'/static/plot{random.randint(1, 4)}.png', 'rb').read())
+                encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
             
                 #'/Ufarms/app/static/plot2.png'
             #'/home/markee/ufarms/Ufarms/app/static/plot4.png'
