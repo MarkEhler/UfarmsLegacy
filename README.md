@@ -8,7 +8,6 @@
 </ul>
 <h2> The Verdant Vision </h2>
     <br><br>
-    <br><br>
     The goal of this project is to create a community for people to connect around local agriculture projects, ultimately strengthening the connections in the community.  Supermarkets, kitchens, grain mills, barns, what do all these places have in common?  We gather(ed) in them and we go to them to get the food.  Over time, these meeting places have been cut off or replaced we seem to have lost our ability to care for the land and eachother at time same time as even community gardens bring to mind exclusivity and unending waitlists.  I'd like to see a world where everyone living in cities has access to grow their own food.  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
     
 <br>
@@ -26,5 +25,5 @@
     <div class="btn-group open">
         <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
         <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
-        <a class="btn btn-default toggle-text" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span class="hidden"> m.ehler@comcast.net </span></a>
+        <a> <span class="hidden"> m.ehler@comcast.net </span></a>
     </div>

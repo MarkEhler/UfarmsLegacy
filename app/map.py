@@ -37,8 +37,7 @@ def get_map():
         lon = float(row.loc['privacy_lon'])
         lats.append(lat)
         lons.append(lon)
-    
-    print(lats, lons)
+
     # Create map object findme location is the mean of all lat, lons, zoom start is the std but inverse of 12 max
     m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
 
@@ -67,14 +66,25 @@ def get_map():
             else: 
                 icon_color = 'orange'
             icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
-            resolution, width, height = 20, 12, 7
+
+            #print log for debug
+            print(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'))
             encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png'), 'rb').read())
+            #'/Ufarms/app/static/plot2.png'
+            #'/home/markee/ufarms/Ufarms/app/static/plot4.png'
+            #'os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png')'
             html = '<img src="data:image/png;base64,{}" width="180" height="110">'.format
             #copy email on click button request todo
-            iframe = folium.IFrame(f"<h3>{row['name']}</h3><h4>Contact: {row.loc['contact']} <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}", width=(width*resolution)+20, height=(height*resolution)+100)
+            if row.loc['contact'] == "m.ehler@comcast.net":
+                thumbnail_body = f"<h3>{row['name']}</h3><h4>Contact: <a class='btn btn-default' onclick='redirectToURL()'><span> {row.loc['contact']} </span> <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}"
+
+            else:
+                thumbnail_body = f"<h3>{row['name']}</h3><h4>Contact: {row.loc['contact']} <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}"
+           
+            resolution, width, height = 20, 12, 7
+            iframe = folium.IFrame(thumbnail_body, width=(width*resolution)+20, height=(height*resolution)+100)
             popup = folium.Popup(iframe, max_width=640, max_height=360 )
             marker = folium.Marker(location=[row.loc['privacy_lat'], row.loc['privacy_lon']], popup=popup, icon=icon)
-            print(marker)
             marker.add_to(m)
 
             folium.Circle(location= [row.loc['privacy_lat'], row.loc['privacy_lon']],
@@ -82,7 +92,6 @@ def get_map():
                         weigth=1,
                         color=icon_color,
                         fill=True).add_to(m)
-        
     m.save(f'{settings.TEMPLATE_PATH}/map.html')
     # Create custom marker icon
     #logoIcon = folium.features.CustomIcon('{STATIC_PATH}', icon_size=(50, 50))
@@ -92,43 +101,3 @@ def get_map():
 
     # Geojson Data
     #overlay = os.path.join('data', 'overlay.json')
-#todo set tooltip box size
-
-#todo add photos of locations
-#todo add contact links to test_hosts.csv
-#todo links to dynamic profile page
-#columns=['ID', 'name', 'address1', 'address2', 'city', 'state', 'zip', 'request', 'string address' 'lat', 'lon', 'work reuest status', 'photo_key']
-'''
-    resolution, width, height = 75, 7, 3
-    encoded = base64.b64encode(open(os.path.join(settings.STATIC_PATH,'mark_pic.jpg'), 'rb').read())
-    # geolocation from the generated lat, lon
-    for i in locations:
-        if i[8] == 'TRUE': 
-            icon_color = 'green'
-        else: 
-            icon_color = 'orange' 
-        
-        folium.Marker([float(i[-2].strip('"')), float(i[-1].strip('"'))],
-            popup=folium.Popup(f"<strong>{i[1]}<br><br>Contact: {i[9]}</strong>", width=500, height=250),
-            tooltip=tooltip,
-            icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')).add_to(m),
-    
-
-
-    html = '<img src="data:image/jpg;base64,{}">'.format
-    iframe = folium.IFrame(html(encoded.decode('UTF-8')), width=(width*resolution)+20, height=(height*resolution)+20)
-    popup = folium.Popup(iframe, max_width=2650)
-    marker = folium.Marker(location=[float(i[-2].strip('"')), float(i[-1].strip('"'))], popup=popup, icon=icon)
-    marker.add_to(m)
-
-       
-    '''
-'''
-    folium.Marker([42.375140, -71.032450],
-                popup='<strong>Location Five</strong>',
-                tooltip=tooltip,
-                icon=logoIcon).add_to(m),
-                
-                Use the following to add thumbnails
-    '''
-
