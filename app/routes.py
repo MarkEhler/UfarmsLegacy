@@ -4,20 +4,24 @@ from werkzeug.security import generate_password_hash
 from app.forms import SignUpForm
 from app.map import get_map
 import os, io, json, random
-import settings
+from config import Config
 from markupsafe import Markup
 
 
 
 @app.route('/')
+def index():
+    app_directory = app.root_path
+    return render_template('home.html', template_folder=Config.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
+
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
-    return render_template('home.html', template_folder=settings.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
+    return render_template('home.html', template_folder=Config.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
 
 @app.route('/map')
 def show_map():
     get_map()
-    return render_template('formatted_map.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+    return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -41,7 +45,7 @@ def survey():
         return redirect(url_for('home'))
     
     # Render the signup page template for GET requests
-    return render_template('signup.html', template_folder=settings.TEMPLATE_PATH, title='Ufarms - Email Signup')
+    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/about')
 def about():
@@ -76,10 +80,16 @@ def profile():
     flash(flashed_message)
     return render_template('profile.html', title='Test Profile Page')
 
-
-
 @app.route('/redirect_about')
 def redirect_about():
     flashed_message = Markup('<strong>Copied to clipboard</strong>')
     flash(flashed_message)
     return redirect(url_for('about'))
+
+@app.route('/iframe')
+def iframe():
+    return render_template('iframe.html')
+
+@app.route('/iframe_content')
+def iframe_content():
+    return render_template('iframe_content.html')

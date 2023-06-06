@@ -1,9 +1,8 @@
 import folium
-import os, csv, base64, random, settings
-from statistics import mean, pstdev
+import os, csv, base64, random
+from config import Config
+from statistics import mean
 import pandas as pd
-import app
-#import branca
 from azure.storage.blob import BlobServiceClient
 
 # make into class todo
@@ -73,19 +72,37 @@ def get_map():
             fname = "map.py"
             dn = os.path.abspath(fname)
             print(os.path.dirname(dn), end="\n:)\n")
+            print(Config.STATIC_PATH)
+            print(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png')
             try:
-                encoded = base64.b64encode(open(os.path.join(os.path.dirname(dn),f'/static/plot{random.randint(1, 4)}.png'), 'rb').read())
+                encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
             except:
                 encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
             
                 #'/Ufarms/app/static/plot2.png'
             #'/home/markee/ufarms/Ufarms/app/static/plot4.png'
-            #'os.path.join(settings.STATIC_PATH,f'plot{random.randint(1, 4)}.png')'
+            #'os.path.join(Config.STATIC_PATH,f'plot{random.randint(1, 4)}.png')'
             html = '<img src="data:image/png;base64,{}" width="180" height="110">'.format
             #copy email on click button request todo
             if row.loc['contact'] == "m.ehler@comcast.net":
-                thumbnail_body = f"<h3>{row['name']}</h3><h4>Contact: <a class='btn btn-default' onclick='redirectToURL()'><span> {row.loc['contact']} </span> <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}"
+                # todo url_for() not defined                                                                
+                thumbnail_body = """
+                                <!DOCTYPE html>
+                <html>
+                <head>
+                <!-- Font Awesome -->
+                <script src="https://kit.fontawesome.com/64910da04b.js" crossorigin="anonymous"></script>
+                <title>IFrame</title>
+                </head>
+                <body>
+                    <div>
+                        <h3><a class="btn btn-default" onclick="redirectToURL()">""" + f"""</i><span id='HostName'> {row['name']} </span></a></h3>
+                        <h4>Contact: <a class='btn btn-default' onclick='copyToClipboard()'><span id='textToCopy'> {row.loc['contact']} </span></a>
+                        <br>Work Request: {row['request']} </h4>
 
+                    </div>
+                </body>
+                </html>{html(encoded.decode('UTF-8'))}"""
             else:
                 thumbnail_body = f"<h3>{row['name']}</h3><h4>Contact: {row.loc['contact']} <br>Work Request: {row['request']} </h4> {html(encoded.decode('UTF-8'))}"
            
@@ -100,9 +117,9 @@ def get_map():
                         weigth=1,
                         color=icon_color,
                         fill=True).add_to(m)
-    m.save('templates/map.html')
+    m.save(Config.TEMPLATE_PATH + f'map.html')
     # Create custom marker icon
-    #logoIcon = folium.features.CustomIcon('{STATIC_PATH}', icon_size=(50, 50))
+    #logoIcon = folium.features.CustomIcon('{Config.STATIC_PATH}', icon_size=(50, 50))
 
     # Vega data
     #vis = os.path.join('data', 'vis.json')

@@ -23,7 +23,7 @@
 <h2> Get in Touch </h2>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
     <div class="btn-group open">
-        <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
-        <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
+        <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"> Linkedin</a>
+        <a class="btn btn-default" href="https://github.com/MarkEhler"> Github\</a>
         <a> <span class="hidden"> m.ehler@comcast.net </span></a>
     </div>

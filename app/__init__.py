@@ -1,6 +1,5 @@
 from flask import Flask # send_from_directory
 from config import Config
-import settings as settings
 from flask_bootstrap import Bootstrap
 import os
 

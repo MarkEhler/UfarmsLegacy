@@ -25,26 +25,21 @@
       function copyToClipboard() {
         // Create a temporary input element
         var tempInput = document.createElement("input");
-  
         // Set the value of the input element to the text inside the span
         tempInput.value = document.getElementById("textToCopy").innerText;
-  
         // Append the input element to the document
         document.body.appendChild(tempInput);
-  
         // Select the text inside the input element
         tempInput.select();
-  
         // Copy the selected text to the clipboard
         document.execCommand("copy");
-  
         // Remove the temporary input element
         document.body.removeChild(tempInput);
       }
     </script>
     <!-- On Click copy to clipboard and redirect to url -->
     <script>
-      function redirectToURLAndCopy() {
+      function redirectToURLAndCopy(url) {
         // Create a temporary input element
         var tempInput = document.createElement("input");
         tempInput.value = document.getElementById("textToCopy").innerText;
@@ -53,15 +48,15 @@
         document.execCommand("copy");
         document.body.removeChild(tempInput);
         // Redirect to the URL
-        window.location.href = "{{ url_for('redirect_about') }}";
+        window.location.href = url;
       }
     </script>
-        <script>
-          function redirectToURL() {
-            // Redirect to the URL
-            window.location.href = "{{ url_for('profile') }}";
-          }
-        </script>
+    <script>
+      function redirectTo(url) {
+        // Redirect the parent page to the specified URL // findme generic url redirect 
+        window.location.href = url;
+      }
+    </script>
     <!-- On Click Flash Script -->
     <script>
       function showMessage() {
@@ -95,7 +90,14 @@
         <div class="container">
           <a class="navbar-brand mr-4" href="/">Ufarms</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <div class="dropdown">
+              <span class="navbar-toggler-icon"></span>
+                <div class="dropdown-content">
+                  <a class="nav-item nav-link" href="/">Home</a>
+                  <a class="nav-item nav-link" href="/about">About</a>
+                  <a class="nav-item nav-link" href="/mailing">Contact</a>
+                </div>
+            </div>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
