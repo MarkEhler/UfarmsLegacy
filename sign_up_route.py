@@ -16,13 +16,25 @@ def signup():
         username = request.form['username']
         email = request.form['email']
         password = request.form['password']
-        
+        fname = request.form['fname']
+        lname = request.form['lname']
+        #additional fields
+        address = request.form['address']
+        farmer_img = request.form['farmer_img']
+        host_img = request.form['host_img']
+        payment = request.form['payment']
+        exp = request.form['exp']
+        bio = request.form['bio']
+        newsletter = 
+        # maybe by linking to a larger provider we can offlaod some of the user/signup reqs
+
+
         # Hash the user's password for security
         hashed_password = generate_password_hash(password)
         
         # Store the user's information in a database
         # You will need to replace this with your own database code
-        db.insert_user(username, email, hashed_password)
+        db.insert_user(username, email, hashed_password, fname, lname)
         
         # Redirect the user to the login page after signup
         return redirect(url_for('login'))

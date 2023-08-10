@@ -1,6 +1,8 @@
 FLASK_APP=run.py
 FLASK_DEBUG=1
 SECRET_KEY=gardensnotlawns
-BLOB_CNX_STRING
-CERT
-PRIVATE_KEY
+BLOB_CNX_STRING="DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
+PSCALE_USERNAME="0wyd8ic8gf6b69flaz47"
+PSCALE_PASSWORD="pscale_pw_AtwWSm2ZeDrFfdyLKPDPNN138bs2E9vrukVglCrsxnG"
+CERT=
+PRIVATE_KEY=

@@ -10,7 +10,7 @@ def get_map():
     # Connect to your Azure Blob Storage
 # Connect to your Azure Blob Storage
     connection_string = "DefaultEndpointsProtocol=https;AccountName=ufarmsblob;AccountKey=z96iS7OjIMrYWh0xGTrL9diKawtvA6SevWEFX038BXhhbVyzxfrGjYmWijwtFHwJ1bZTHeGDKcgz+AStgo/8ew==;EndpointSuffix=core.windows.net"
-    blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+    blob_service_client = BlobServiceClient.from_connection_string(BLOB_CNX_STRING)
 
     try:
         # Specify the container name and blob name of your CSV file in Azure Blob Storage
@@ -52,7 +52,7 @@ def get_map():
                     background-color:white; opacity:0.8">
             <p><strong>Legend</strong></p>
             <p style="color: green;"><span style="color: green;"></span> Openings</p>
-            <p style="color: orange;"><span style="color: #87CEEB;"></span> Check Back Soon</p>
+            <p style="color: orange;"><span style="color: #87CEEB;"></span> No Openings</p>
         </div>
     '''
 
@@ -87,18 +87,29 @@ def get_map():
             if row.loc['contact'] == "m.ehler@comcast.net":
                 # todo url_for() not defined                                                                
                 thumbnail_body = """
-                                <!DOCTYPE html>
-                <html>
+                <!DOCTYPE html>
                 <head>
-                <!-- Font Awesome -->
-                <script src="https://kit.fontawesome.com/64910da04b.js" crossorigin="anonymous"></script>
-                <title>IFrame</title>
+
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+                <style> img { max-width: 100%; } </style>
+                <!-- Jquery -->
+                <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+                <!-- Bootstrap CSS -->
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+                
+                    <title>IFrame</title>
+                <script>
+                function redirectTo(url) {
+                    window.location.href = url;
+                }
+                </script>
                 </head>
                 <body>
                     <div>
-                        <h3><a class="btn btn-default" onclick="redirectToURL()">""" + f"""</i><span id='HostName'> {row['name']} </span></a></h3>
-                        <h4>Contact: <a class='btn btn-default' onclick='copyToClipboard()'><span id='textToCopy'> {row.loc['contact']} </span></a>
-                        <br>Work Request: {row['request']} </h4>
+                        <h3><a class="btn btn-default" onclick="redirectTo(profile)">""" + f"""</i><span id='HostName'> {row['name']} </span></a></h3>
+                        <b>Contact: <a data-auto-recognition="true" href="mailto:m.ehler@comcast.net" class="wixui-rich-text__text"><span id='textToCopy'> {row.loc['contact']} </span></a>
+                        <br>Work Request: {row['request']} </b>
 
                     </div>
                 </body>
