@@ -7,25 +7,4 @@
 <div>
     <img src="/static/banner.png" alt="planting_trees", width="100%", location = "center">
 </div>
-<script>
-    function copyToClipboard() {
-      // Create a temporary input element
-      var tempInput = document.createElement("input");
-
-      // Set the value of the input element to the text inside the span
-      tempInput.value = document.getElementById("textToCopy").innerText;
-
-      // Append the input element to the document
-      document.body.appendChild(tempInput);
-
-      // Select the text inside the input element
-      tempInput.select();
-
-      // Copy the selected text to the clipboard
-      document.execCommand("copy");
-
-      // Remove the temporary input element
-      document.body.removeChild(tempInput);
-    }
-  </script>
 {% endblock app_content %}

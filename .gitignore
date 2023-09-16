@@ -1,5 +1,8 @@
 app/__pycache__*
 __pycache__*
 .env
-.flaskenv
 *.csv
+dump*
+.flaskenv
+map.2*
+.*

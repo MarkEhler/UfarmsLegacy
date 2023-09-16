@@ -8,7 +8,7 @@ p {
 }
 
 body {
-  background: #fafafa;
+  background-color: #bbe7a9;
   color: #333333;
   margin-top: 5rem;
 }
@@ -165,4 +165,33 @@ body {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+.home-module {
+  background-color: #bbe7a9cd;
+  color: #333333;
+  margin-top: 5rem;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+/* Style for the footer div */
+.footer {
+  text-align: center;
+  padding: 60px;
+  flex: 1;
+}
+
+/* Center the map and survey divs horizontally and vertically */
+.map, .survey {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the buttons */
+.btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

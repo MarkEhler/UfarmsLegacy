@@ -5,13 +5,14 @@
     <title>IFrame</title>
 </head>
 <body>
-    <a href="/profile" onclick="sendMessageToParent()">Click here to redirect the parent page</a>
+    <a href="#" onclick="redirectParentPage()">Click here to redirect the parent page</a>
     <a data-auto-recognition="true" href="mailto:zuliascleaning@gmail.com" class="wixui-rich-text__text">zuliascleaning@gmail.com</a>
     <script>
-        function sendMessageToParent() {
-            // Send a message to the parent page to trigger the redirection
-            parent.postMessage('redirect', '*');
+        function redirectParentPage() {
+            // Redirect the parent page to the desired URL
+            parent.location.href = "/profile";
         }
     </script>
 </body>
 </html>
+

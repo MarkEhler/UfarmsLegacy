@@ -2,26 +2,30 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block app_content %}
 
-  <body>
-      <div class="map">
-        <div class="container">
-          <div class="row">
-            <div class="col text-center">
-              <h2>Community Agriculture Project</h2>
-              <br>
-              <a class="btn btn-success" href="/map"><i class="fa fa-leaf"></i></a>
-              <p color="orange"><i>under development</i></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="links">
-    <!-- Date : <input type="text" id=date>  -->
-      </div>
-      <div>
-        <img src="/static/banner.png" alt="planting_trees", width="100%", location = "center">
+<body>
+  <div class="home-module">
+    <div class="title">
+        <h1>Community Agriculture Project</h1>
     </div>
-  </body>
+    <div class="map">
+        <div class="container">
+            <div class="col text-center">
+                <p><i>Map under development</i></p>
+                <a class="btn btn-success" href="/map"><i class="fa fa-leaf"></i></a>
+            </div>
+            <div class="col text-center">
+                <p>Take a 5-minute survey - Help this project grow!</p>
+                <a class="btn btn-success" href="/survey"><i class="fa fa-poll"></i></a>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+<div class="footer">
+  <img src="/static/banner.png" alt="planting_trees" style="max-width: 100%; display: block; margin: 0 auto;">
+</div>
+</html>
+
 {% endblock %}
 
 

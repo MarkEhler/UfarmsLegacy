@@ -1,11 +1,24 @@
-from flask import Flask # send_from_directory
+from flask import Flask
 from config import Config
 from flask_bootstrap import Bootstrap
-import os
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
-bootstrap = Bootstrap(app)
-app.secret_key = os.urandom(24)
+app.secret_key = Config.SECRET_KEY
 
-from app import routes, errors #py files that do things
+# Create a SQLAlchemy database connection
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"mysql+mysqlconnector://{Config.DB_USER}:{Config.DB_PASSWORD}@{Config.DB_HOST}/{Config.DB_NAME}"
+    "?ssl_ca=/etc/ssl/certs/ca-certificates.crt"
+)
+
+db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
+migrate = Migrate(app, db)
+
+from app import routes, models
+
+

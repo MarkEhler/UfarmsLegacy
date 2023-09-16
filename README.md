@@ -9,6 +9,9 @@
 <h2> The Verdant Vision </h2>
     <br><br>
     The goal of this project is to create a community for people to connect around local agriculture projects, ultimately strengthening the connections in the community.  Supermarkets, kitchens, grain mills, barns, what do all these places have in common?  We gather(ed) in them and we go to them to get the food.  Over time, these meeting places have been cut off or replaced we seem to have lost our ability to care for the land and eachother at time same time as even community gardens bring to mind exclusivity and unending waitlists.  I'd like to see a world where everyone living in cities has access to grow their own food.  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
+
+# foodwaste (figure)
+<a href="https://imgur.com/RiuSTcy"><img src="https://i.imgur.com/RiuSTcy.jpg" title="source: imgur.com" /></a>
     
 <br>
 <br>
@@ -27,3 +30,7 @@
         <a class="btn btn-default" href="https://github.com/MarkEhler"> Github\</a>
         <a> <span class="hidden"> m.ehler@comcast.net </span></a>
     </div>
+
+
+# mock-up
+<a href="https://imgur.com/aNEB4nB"><img src="https://i.imgur.com/aNEB4nB.jpg" title="source: imgur.com" /></a>
