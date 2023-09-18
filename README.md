@@ -11,7 +11,11 @@
 <br>
     <p>
     The goal of this project is to create a community for people to connect around local agriculture projects.  Supermarkets, kitchens, grain mills, barns, what do all these places have in common?  We gather(ed) in them and we go to them to get the food.  Over time, these meeting places have been cut off or replaced by unsustainable food supply networks.  While our curreny grocery supply chain is an impressive feat of modern logistics, it places avaibility above any other expense and wastes a large amount of the food we grow.
+    <figure>
     <a href="https://imgur.com/pDNLKEg"><img src="https://i.imgur.com/pDNLKEg.png" title="food waste" /></a>
+    <figcaption>US EPA 2018 https://19january2021snapshot.epa.gov/facts-and-figures-about-materials-waste-and-recycling/food-material-specific-data_.html</figcaption>
+    https://19january2021snapshot.epa.gov/facts-and-figures-about-materials-waste-and-recycling/food-material-specific-data_.html
+    </figure>
     In the process seem to have lost our ability to care for the land and eachother.  Ufarms is about seeing a world where everyone living in cities has access to grow their own food and connect with their neighbors again.
     </p>
 <br>
