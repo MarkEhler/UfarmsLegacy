@@ -7,21 +7,27 @@
 
 </ul>
 <h2> The Verdant Vision </h2>
-    <br><br>
-    The goal of this project is to create a community for people to connect around local agriculture projects, ultimately strengthening the connections in the community.  Supermarkets, kitchens, grain mills, barns, what do all these places have in common?  We gather(ed) in them and we go to them to get the food.  Over time, these meeting places have been cut off or replaced we seem to have lost our ability to care for the land and eachother at time same time as even community gardens bring to mind exclusivity and unending waitlists.  I'd like to see a world where everyone living in cities has access to grow their own food.  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
-
-# foodwaste (figure)
-<a href="https://imgur.com/RiuSTcy"><img src="https://i.imgur.com/RiuSTcy.jpg" title="source: imgur.com" /></a>
-    
 <br>
 <br>
+    <p>
+    The goal of this project is to create a community for people to connect around local agriculture projects.  Supermarkets, kitchens, grain mills, barns, what do all these places have in common?  We gather(ed) in them and we go to them to get the food.  Over time, these meeting places have been cut off or replaced by unsustainable food supply networks.  While our curreny grocery supply chain is an impressive feat of modern logistics, it places avaibility above any other expense.
+    <a href="https://imgur.com/pDNLKEg"><img src="https://i.imgur.com/pDNLKEgs.png" title="source: imgur.com" /></a>
+    In the process seem to have lost our ability to care for the land and eachother.  Ufarms is about seeing a world where everyone living in cities has access to grow their own food and connect with their neighbors again. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
+    </p>
+<br>
+<br>
+=========
 <h2> How it's Intended to Grow </h2>
-    <p>"If nothing is eating your plants they arn't interacting with the ecology"</p>
     <br>
-    <body> At it's core, this project is meant to do two things, collect a list of farmers and land owners and show them the map so they can connect.  First a map, then we can find the way back.
+    <body> At it's core, this project is meant to do two things, collect a list of farmers and land owners and show them the map so they can connect.  First a map, then we can find the way back.  This mockup is intended to convey a fully functioning map module.
+    <a href="https://imgur.com/aNEB4nB">
+=========    
+    <img src="https://i.imgur.com/aNEB4nB.jpg" title="source: imgur.com" style="border: 2px solid #000;">
+    </a>
+=========
 <h3> Call to action </h3>
     <br>
-    <p>At this phase we only need your intrest.  Contributing to a healthier food system doesn't need to be hard, it can acutally be kinda fun.  If you're intrested in being listed on the demo map, drop me a message</p>
+    <p>At this phase we only need your intrest.  Contributing to a healthier food system doesn't need to be hard, it can acutally be kinda fun.  If you're intrested in being included in the beta, drop us a line!</p>
     <br>
 <h2> Get in Touch </h2>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMcVM9-m9wIySnytV_PTfDHVxrya5ecNSrDL7TunFNzehZYw/viewform?embedded=true"> Mailing List </a> 
@@ -32,5 +38,4 @@
     </div>
 
 
-# mock-up
-<a href="https://imgur.com/aNEB4nB"><img src="https://i.imgur.com/aNEB4nB.jpg" title="source: imgur.com" /></a>
+
