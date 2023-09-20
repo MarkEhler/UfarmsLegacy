@@ -12,7 +12,7 @@ app.secret_key = Config.SECRET_KEY
 # Create a SQLAlchemy database connection
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"mysql+mysqlconnector://{Config.DB_USER}:{Config.DB_PASSWORD}@{Config.DB_HOST}/{Config.DB_NAME}"
-    "?ssl_ca=/etc/ssl/certs/ca-certificates.crt"
+    "?ssl_ca=ca-certificates.crt"
 )
 
 db = SQLAlchemy(app)
