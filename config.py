@@ -8,7 +8,7 @@ class Config(object):
     # env_var = os.getenv("host")
     # print(f"Value of 'host' environment variable: {env_var}")
     # DB_HOST = env_var.strip() if env_var else "default_host"
-
+    CA_CERT = os.environ.get('CA_CERT')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 # findme todo ^^^
