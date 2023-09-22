@@ -23,6 +23,7 @@ def show_map():
 
     if ufarms:
         map.get_map(ufarms)
+        print('DB connection successful')
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
