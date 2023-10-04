@@ -70,17 +70,36 @@ def mailing2():
     #flash('email copied to clipboard')
     return render_template('mailinglist2.html', title='Ufarms - Mailbox')
 
-# future route ufarmer/<hash or username>
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    return render_template('profile.html', title='Test Profile Page')
-
 @app.route('/redirect_about')
 def redirect_about():
     flashed_message = Markup('<strong>Copied to clipboard</strong>')
     flash(flashed_message)
     return redirect(url_for('about'))
 
+
+
+# directories
+@app.route('/ufarmers', methods=['GET', 'POST'])
+def ufarmers():
+    return render_template('ufarmers.html', title='Test Profile Directory Page')
+
+# future route ufarmers/<hash or username>
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    return render_template('profile.html', title='Test Profile Page')
+
+@app.route('/ufarms', methods=['GET', 'POST'])
+def ufarms():
+    return render_template('ufarms.html', title='Test Farm Page')
+
+@app.route('/ufarm', methods=['GET', 'POST'])
+def ufarm():
+    return render_template('ufarm.html', title='Test Farm Page')
+
+
+
+
+# testing
 @app.route('/iframe')
 def iframe():
     return render_template('iframe.html')

@@ -3,9 +3,24 @@
 <ul>
     <li> app/ -- flask package files</li>
     <li> run.py -- init file for flask</li>
+    <li> Local Reproduction Steps </li>
+    <li> Additional infor below </li>
     <li> <a href="#"> Demo Video - coming soon </a> </li>
 
+<h2> Setting up a Local Flask Environment (I used Ubuntu) </h2>
+
+<ul> 
+<li>run `venv` in root directory </li>
+<li>`source bin/activate` </li>
+<li>Git clone this repo </li>
+<li>Change directory to the repo </li>
+<li>Pip install requirements.txt </li>
+<li>Copy paste .flaskenv file from the note </li>
+<li>See that the .crt file exists in your local the path defined in __init__.py(maybe differ for windows and apple users) </li>
+<li> `flask run` in Ufarms directory </li>
+<li>Observe changes on localhost:5000 </li>
 </ul>
+
 <h2> The Verdant Vision </h2>
 <br>
 <br>
