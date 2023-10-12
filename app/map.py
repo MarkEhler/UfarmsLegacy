@@ -72,7 +72,7 @@ def get_map(ufarms):
         # profile_url = 'https://example.com/profile' todo
 
         if farm.Contact == "m.ehler@comcast.net":
-            iframe_content = open(Config.TEMPLATE_PATH + 'iframe_content.html', 'r').read()
+            # iframe_content = open(Config.TEMPLATE_PATH + 'iframe_content.html', 'r').read()  Attepmted to build from existing template
             js_code = """
                     <script>
                         function redirectParentPage() {
