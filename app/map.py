@@ -4,6 +4,9 @@ from flask import jsonify
 from config import Config
 from statistics import mean
 
+print("Map")
+# Print the current working directory
+print(f"Current Working Directory: {os.getcwd()}")
 def get_map(ufarms):
     # query = "SELECT `Name`, `IsActive`, `Contact`, `Request`, `Privacy_lat`, `Privacy_lon` FROM Ufarms WHERE `Host` = 1;"
 
