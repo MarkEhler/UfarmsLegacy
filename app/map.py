@@ -4,19 +4,13 @@ from flask import jsonify
 from config import Config
 from statistics import mean
 
-print("Map")
-# Print the current working directory
-print(f"Current Working Directory: {os.getcwd()}")
-def get_map(ufarms):
-    # query = "SELECT `Name`, `IsActive`, `Contact`, `Request`, `Privacy_lat`, `Privacy_lon` FROM Ufarms WHERE `Host` = 1;"
 
-    # names = []
-    # isactive = []
-    # contacts = []
-    # requests = []
+def get_map(ufarms):
+    print("Map")
+    # Print the current working directory
+    print(f"Current Working Directory: {os.getcwd()}")
     lats = []
     lons = []
-
 
     for farm in ufarms:
         lats.append(farm.Privacy_lat)
@@ -131,6 +125,12 @@ def get_map(ufarms):
         # Add the legend to the map
         m.get_root().html.add_child(folium.Element(legend_html))
 
-    m.save(Config.TEMPLATE_PATH + f'map.html')
+    # Check if the directory exists, and if not, create it
+    template_path = Config.TEMPLATE_PATH
+    if not os.path.exists(template_path):
+        os.makedirs(template_path)
+
+    # Save the Folium Map object
+    m.save(os.path.join(template_path, 'map.html'))
 
 # END
