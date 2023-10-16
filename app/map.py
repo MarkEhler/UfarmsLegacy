@@ -4,11 +4,25 @@ from flask import jsonify
 from config import Config
 from statistics import mean
 
+def list_subdirectories(path):
+    # List all items (files and directories) in the given path
+    items = os.listdir(path)
+
+    # Iterate through the items
+    for item in items:
+        # Form the full path of the item
+        item_path = os.path.join(path, item)
+
+        # Check if the item is a directory
+        if os.path.isdir(item_path):
+            # If it's a directory, print its name and recursively list its subdirectories
+            print("Directory:", item_path)
+            list_subdirectories(item_path)
 
 def get_map(ufarms):
     print("Map")
     # Print the current working directory
-    print(f"Current Working Directory: {os.getcwd()}")
+    list_subdirectories(os.getcwd())
     lats = []
     lons = []
 
@@ -44,13 +58,12 @@ def get_map(ufarms):
         fname = "map.py"
         dn = os.path.abspath(fname)
         print(os.path.dirname(dn), end="\n:)\n")
-        print(Config.STATIC_PATH)
-        print(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png')
         try:
             encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
+            print('try path')
         except:
             encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
-        
+            print('execpt path')
         html = """
                 <head>
                     <meta charset="utf-8">
@@ -127,10 +140,19 @@ def get_map(ufarms):
 
     # Check if the directory exists, and if not, create it
     template_path = Config.TEMPLATE_PATH
-    if not os.path.exists(template_path):
-        os.makedirs(template_path)
+    print(template_path)
 
+    # if not os.path.exists(template_path):
+    #     os.makedirs(template_path)
     # Save the Folium Map object
-    m.save(os.path.join(template_path, 'map.html'))
-
-# END
+    try:
+        m.save(os.path.join(template_path, 'map.html'))
+    except:
+        m.save(os.path.join('/app/app/templates', 'map.html'))
+        try:
+            encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
+            print('try path')
+        except:
+            encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
+            print('execpt path')    
+    # END
