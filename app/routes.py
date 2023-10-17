@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, jsonify, request
 from app import app, db, map
 from app.models import Ufarms
 # from app.forms import SignUpForm
-import os, io, json, random
+import random
 from config import Config
 from markupsafe import Markup
 
