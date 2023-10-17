@@ -1,23 +1,7 @@
 import folium
-import os, csv, base64, random
-from flask import jsonify
+import os, base64, random
 from config import Config
 from statistics import mean
-
-def list_subdirectories(path):
-    # List all items (files and directories) in the given path
-    items = os.listdir(path)
-
-    # Iterate through the items
-    for item in items:
-        # Form the full path of the item
-        item_path = os.path.join(path, item)
-
-        # Check if the item is a directory
-        if os.path.isdir(item_path):
-            # If it's a directory, print its name and recursively list its subdirectories
-            print("Directory:", item_path)
-            list_subdirectories(item_path)
 
 def get_map(ufarms):
     print("Map")
