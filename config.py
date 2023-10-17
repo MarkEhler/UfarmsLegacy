@@ -11,9 +11,9 @@ class Config(object):
     # findme todo ^^^
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    TEMPLATE_PATH = os.path.join(APP_PATH, 'Ufarms/app/templates/')
+    TEMPLATE_PATH = os.path.join(basedir, '/app/templates/')
     STATIC_PATH = os.path.join(basedir, 'app/static/')
-    DATA_PATH = os.path.join(APP_PATH, 'Ufarms/app/data/')
+    DATA_PATH = os.path.join(basedir, '/app/data/')
 
     ENVIRONMENT = os.getenv("ENVIRONMENT")
     if ENVIRONMENT == 'develop':

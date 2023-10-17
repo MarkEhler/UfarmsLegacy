@@ -16,7 +16,8 @@ def get_map(ufarms):
     m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
 
     # Global tooltip
-    tooltip = 'Click For More Info'
+    # tooltip = 'Click For More Info'
+
     # Define the legend HTML
     legend_html = '''
         <div style="position: fixed;
@@ -36,16 +37,10 @@ def get_map(ufarms):
             icon_color = 'orange'
         icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
 
-        #print log for debug
         fname = "map.py"
         dn = os.path.abspath(fname)
-        print(os.path.dirname(dn), end="\n:)\n")
-        try:
-            encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
-            print('try path')
-        except:
-            encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
-            print('execpt path')
+        encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
+
         html = """
                 <head>
                     <meta charset="utf-8">
@@ -119,22 +114,6 @@ def get_map(ufarms):
                     fill=True).add_to(m)
         # Add the legend to the map
         m.get_root().html.add_child(folium.Element(legend_html))
-
-    # Check if the directory exists, and if not, create it
-    template_path = Config.TEMPLATE_PATH
-    print(template_path)
-
-    # if not os.path.exists(template_path):
-    #     os.makedirs(template_path)
-    # Save the Folium Map object
-    try:
-        m.save(os.path.join(template_path, 'map.html'))
-    except:
-        m.save(os.path.join('/app/app/templates', 'map.html'))
-        try:
-            encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
-            print('try path')
-        except:
-            encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
-            print('execpt path')    
+        #Save Map HTML to template
+        m.save(os.path.join(Config.TEMPLATE_PATH, 'map.html'))   
     # END
