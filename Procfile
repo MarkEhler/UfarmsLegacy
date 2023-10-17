@@ -1,1 +1,1 @@
-web: gunicorn run:Ufarms
+web: gunicorn run:app
