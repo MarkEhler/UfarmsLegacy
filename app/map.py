@@ -5,8 +5,6 @@ from statistics import mean
 
 def get_map(ufarms):
     print("Map")
-    # Print the current working directory
-    list_subdirectories(os.getcwd())
     lats = []
     lons = []
 
