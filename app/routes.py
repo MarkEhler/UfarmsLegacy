@@ -58,12 +58,7 @@ def about():
 
 @app.route('/survey')
 def mailing():
-    rand_int = random.randint(1, 2) #todo create a counter that counts to 18 before directing all traffic to the google
-    #flash('email copied to clipboard')
-    if rand_int == 1:
-        return redirect(url_for('mailing2'))
-    else:
-    	return render_template('mailinglist.html', title='Ufarms - Mailbox')
+    return render_template('mailinglist.html', title='Ufarms - Mailbox')
 
 @app.route('/mailing2')
 def mailing2():
