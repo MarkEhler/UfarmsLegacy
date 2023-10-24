@@ -19,10 +19,11 @@ def home():
 
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
-    ufarms = Ufarms.query.all()
+    # Here is where the 
+    ufarms_db_table = Ufarms.query.all()
 
     if ufarms:
-        map.get_map(ufarms)
+        map.get_map(ufarms_db_table)
         print('DB connection successful')
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
@@ -60,11 +61,6 @@ def about():
 def mailing():
     return render_template('mailinglist.html', title='Ufarms - Mailbox')
 
-@app.route('/mailing2')
-def mailing2():
-    #flash('email copied to clipboard')
-    return render_template('mailinglist2.html', title='Ufarms - Mailbox')
-
 @app.route('/redirect_about')
 def redirect_about():
     flashed_message = Markup('<strong>Copied to clipboard</strong>')
@@ -83,6 +79,8 @@ def ufarmers():
 def profile():
     return render_template('profile.html', title='Test Profile Page')
 
+
+#  todo findme - placeholder for futuer listed directories
 @app.route('/ufarms', methods=['GET', 'POST'])
 def ufarms():
     return render_template('ufarms.html', title='Test Farm Page')
