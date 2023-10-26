@@ -3,7 +3,7 @@ import os, base64, random
 from config import Config
 from statistics import mean
 
-def get_map(ufarms):
+def get_map(ufarms, coordinates=None, address=None):
     print("Map")
     lats = []
     lons = []
@@ -12,8 +12,12 @@ def get_map(ufarms):
         lats.append(farm.Privacy_lat)
         lons.append(farm.Privacy_lon)
 
-# create map element
-    m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
+    if coordinates:
+        # Add a marker to the map at the provided coordinates
+        m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=coordinates, zoom_start=13)
+    else:
+        print("Coordinates not provided.")
+        m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
 
     # Global tooltip
     # tooltip = 'Click For More Info'

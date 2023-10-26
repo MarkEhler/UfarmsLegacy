@@ -41,8 +41,9 @@ def show_map2():
     ufarms_db_table = Ufarms.query.all()
 
     if ufarms:
-        example_geocoder.get_map(ufarms_db_table, query)
-        print('DB connection successful')
+        coordinates = example_geocoder.geocode_address(query)
+        print(coordinates)
+        map.get_map(ufarms_db_table, coordinates, query)
         return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
         return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')

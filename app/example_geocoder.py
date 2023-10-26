@@ -1,28 +1,34 @@
-import folium
-import os, base64, random
+import requests
 from config import Config
-from statistics import mean
-from geopy.geocoders import Nominatim
 
-# Create a map
-def get_map(ufarms, query):
-    m = folium.Map(tiles='stamenwatercolor', location=[0, 0], zoom_start=2)
+# Function to geocode an address using Mapbox
+def geocode_address(address):
 
-    # Create a geocoder instance (Nominatim in this example)
-    geolocator = Nominatim(user_agent="myGeocoder")
+    base_url = f'https://api.mapbox.com/geocoding/v5/mapbox.places/{address}.json'
+    params = {
+        'access_token': Config.MAPBOX_TOKEN,
+    }
 
-    try:
-        # Perform geocoding -- replace string with search bar text
-        location = geolocator.geocode(query)
-        
-        if location:
-            # Add a marker to the map using the geocoded coordinates
-            folium.Marker([location.latitude, location.longitude], popup="Google HQ").add_to(m)
-        else:
-            print("Location not found")
+    response = requests.get(base_url, params=params)
+    data = response.json()
 
-    except Exception as e:
-        print("An error occurred:", str(e))
+    if 'features' in data and data['features']:
+        # Extract coordinates from the first result
+        coordinates = data['features'][0]['center'][::-1]
+        return coordinates
+    else:
+        return None
 
-    # Save or display the map
-    m.save(os.path.join(Config.TEMPLATE_PATH, "testmap.html"))
+#  next step extract the map generation for use with the address created
+# Create a Folium map
+# m = folium.Map(location=[0, 0], zoom_start=10)
+# # Geocode the address
+# coordinates = geocode_address(address)
+# if coordinates:
+#     # Add a marker to the map at the geocoded coordinates
+#     folium.Marker(location=coordinates, popup=address).add_to(m)
+# else:
+#     print(f"Geocoding failed for address: {address}")
+
+# # Save or display the map
+# m.save('map.html')

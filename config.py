@@ -8,6 +8,7 @@ class Config(object):
     # CA_CERT = os.environ.get('CA_CERT')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MAPBOX_TOKEN = os.environ.get('MAPBOX_TOKEN')
     # findme todo ^^^
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
