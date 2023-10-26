@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
-from app import app, db, map
+from app import app, db, map, example_geocoder
 from app.models import Ufarms
 # from app.forms import SignUpForm
 import random
@@ -19,7 +19,6 @@ def home():
 
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
-    # Here is where the 
     ufarms_db_table = Ufarms.query.all()
 
     if ufarms:
@@ -28,6 +27,26 @@ def show_map():
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+
+@app.route('/testmap', methods=['GET', 'POST'])
+def show_map2():
+    if request.method == 'POST':
+        # Access form data using request.form
+        query = request.form.get('query')
+        category = request.form.get('category')
+
+        # Now you have the user input in the 'query' and 'category' variables
+        print('User Input - Query:', query)
+        print('User Input - Category:', category)
+    ufarms_db_table = Ufarms.query.all()
+
+    if ufarms:
+        example_geocoder.get_map(ufarms_db_table, query)
+        print('DB connection successful')
+        return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+    else:
+        return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+
 
 # todo -- rather than implement this, maybe use cookie cutter method
 # @app.route('/signup', methods=['GET', 'POST'])
