@@ -6,7 +6,9 @@ CREATE TABLE Ufarms (
   IsActive BOOLEAN,
   AddressStr VARCHAR(255),
   Contact VARCHAR(255),
-  Request VARCHAR(255),
+  Request VARCHAR(255)
+  Privacy_lat FLOAT,
+  Privacy_lon FLOAT
   KEY UserID (UserID)
 );
 

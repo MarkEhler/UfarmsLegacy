@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
-from app import app, db, map, example_geocoder
+from app import app, db, map, geocoder
 from app.models import Ufarms
 # from app.forms import SignUpForm
 import random
@@ -34,8 +34,7 @@ def show_map2():
         # Access form data using request.form
         query = request.form.get('query')
         category = request.form.get('category')
-
-        # Now you have the user input in the 'query' and 'category' variables
+        # Now you have the user input in the 'query' and 'category' variables todo currently can only search farms category
         print('User Input - Query:', query)
         print('User Input - Category:', category)
     ufarms_db_table = Ufarms.query.all()

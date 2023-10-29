@@ -2,6 +2,7 @@ import folium
 import os, base64, random
 from config import Config
 from statistics import mean
+from geocoder import geocode_address 
 
 def get_map(ufarms, coordinates=None, address=None):
     print("Map")
@@ -40,9 +41,6 @@ def get_map(ufarms, coordinates=None, address=None):
         else: 
             icon_color = 'orange'
         icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
-
-        fname = "map.py"
-        dn = os.path.abspath(fname)
         encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
 
         html = """
