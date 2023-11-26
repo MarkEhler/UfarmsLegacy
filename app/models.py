@@ -13,7 +13,7 @@ class UserManager(models.Manager):
     
 class Ufarms(db.Model):
     __tablename__ = 'ufarms'
-    UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True))
+    UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicFarmID = db.Column(db.String(12), unique=True, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.UserID'), nullable=True) #foreign keys not supported on planet scale.  users is parent table.
     Name = db.Column(db.String(255), unique=True)
@@ -54,7 +54,7 @@ class Ufarms(db.Model):
 
 class Users(db.Model):
     __tablename__ = 'users'
-    UserID = db.Column(db.Integer, primary_key=True, autoincrement=True))
+    UserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicID = db.Column(db.String(12), unique=True, nullable=True)
     Name = db.Column(db.String(255), unique=True)
     IsActive = db.Column(db.Boolean, default=True)
