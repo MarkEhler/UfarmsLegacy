@@ -8,64 +8,83 @@ class UserManager(models.Manager):
         return ''.join(random.choice(chars) for _ in range(size))
 
     def create_user_with_public_id(self, name):
-        user = self.create(name=name, public_id=self.generate_public_id())
+        user = self.create(name=name, PublicID=self.generate_public_id())
         return user
     
 class Ufarms(db.Model):
-    __tablename__ = 'Ufarms'
-    UfarmID = db.Column(db.Integer, primary_key=True)
-    UserID = db.Column(db.Integer)
+    __tablename__ = 'ufarms'
+    UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True))
+    PublicFarmID = db.Column(db.String(12), unique=True)
+    UserID = db.Column(db.Integer, db.ForeignKey('users.UserID'), nullable=True) #foreign keys not supported on planet scale.  users is parent table.
     Name = db.Column(db.String(255), unique=True)
-    Host = db.Column(db.Boolean)
     IsActive = db.Column(db.Boolean)
     AddressStr = db.Column(db.String(255), unique=True)
     Contact = db.Column(db.String(255), unique=True)
     Request = db.Column(db.String(255))
     Privacy_lat = db.Column(db.Float)
     Privacy_lon = db.Column(db.Float)
+    CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
+    UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+
+    objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        if not self.PublicFarmID:
+            self.PublicFarmID = self.objects.generate_public_id()
+        super().save(*args, **kwargs)
 
     def serialize(self):
         return {
             'UfarmID': self.UfarmID,
+            'PublicFarmID': self.PublicFarmID,
             'UserID': self.UserID,
             'Name': self.Name,
-            'Host': self.Host,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
             'Contact': self.Contact,
             'Request': self.Request,
             'Privacy_lat': self.Privacy_lat,
-            'Privacy_lon': self.Privacy_lon
+            'Privacy_lon': self.Privacy_lon,
+            'CreatedAt': self.CreatedAt,
+            'UpdatedAt': self.UpdatedAt
         }
     
     def __repr__(self):
-        return '<Ufarms {}>'.format(self.__tablename__)
-    
-class Users(db.Model):
-    __tablename__ = 'Users'
-    UserID = db.Column(db.Integer, primary_key=True)
-    Name = db.Column(db.String(255), unique=True)
-    IsActive = db.Column(db.Boolean)    
-    Contact = db.Column(db.String(255), unique=True)
-    Bio = db.Column(db.String(255), unique=True)
+        return '<Users {}>'.format(self.__tablename__)
 
-    # def serialize(self):
-    #     return {
-    #     }
+class Users(db.Model):
+    __tablename__ = 'users'
+    UserID = db.Column(db.Integer, primary_key=True, autoincrement=True))
+    PublicID = db.Column(db.String(12), unique=True, nullable=True)
+    Name = db.Column(db.String(255), unique=True)
+    IsActive = db.Column(db.Boolean, default=True)
+    AddressStr = db.Column(db.String(255), unique=True)
+    Contact = db.Column(db.String(255), unique=True)
+    Host = db.Column(db.Boolean, default=False)
+    Bio = db.Column(db.String(255), unique=True, nullable=True)
+    CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
+    UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+
+    objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        if not self.PublicID:
+            self.PublicID = self.objects.generate_public_id()
+        super().save(*args, **kwargs)
+
+    def serialize(self):
+        return {
+            'UserID': self.UserID,
+            'PublicID': self.PublicID,
+            'Name': self.Name,
+            'IsActive': self.IsActive,
+            'AddressStr': self.AddressStr,
+            'Contact': self.Contact,
+            'Host': self.Host,
+            'Bio': self.Bio,
+            'CreatedAt': self.CreatedAt,
+            'UpdatedAt': self.UpdatedAt
+        }
 
     def __repr__(self):
         return '<Users {}>'.format(self.__tablename__)
-    
-# class User(models.Model):
-#     id = models.BigAutoField(primary_key=True)
-#     public_id = models.CharField(max_length=12, unique=True, blank=True, null=True)
-#     name = models.CharField(max_length=255)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-#     objects = UserManager()
-
-#     def save(self, *args, **kwargs):
-#         if not self.public_id:
-#             self.public_id = self.objects.generate_public_id()
-#         super().save(*args, **kwargs)
