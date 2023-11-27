@@ -10,3 +10,7 @@ CREATE TABLE users (
   CreatedAt datetime DEFAULT CURRENT_TIMESTAMP,
   UpdatedAt datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
+INSERT INTO users (Name, AddressStr, Contact, Bio)
+VALUES ('John Doe', '123 Main St, Burlington, VT', 'john.doe@example.com', 'A short bio about John Doe');

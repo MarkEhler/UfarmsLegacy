@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
 from app import app, db, map, geocoder
-from app.models import Ufarms
+from app.models import Ufarms, Users
 # from app.forms import SignUpForm
 import random
 from config import Config
@@ -40,7 +40,7 @@ def show_map2():
     ufarms_db_table = Ufarms.query.all()
 
     if ufarms:
-        coordinates = example_geocoder.geocode_address(query)
+        coordinates = geocoder.geocode_address(query)
         print(coordinates)
         map.get_map(ufarms_db_table, coordinates, query)
         return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
@@ -49,28 +49,28 @@ def show_map2():
 
 
 # todo -- rather than implement this, maybe use cookie cutter method
-# @app.route('/signup', methods=['GET', 'POST'])
-# def survey():
-#     form = SignUpForm()
-#     if form.validate_on_submit():
-#         first_name = form['first_name']
-#         last_name = form['last_name']
-#         email = form['email']
+@app.route('/signup', methods=['GET', 'POST'])
+def survey():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        first_name = form['first_name']
+        last_name = form['last_name']
+        email = form['email']
         
-#         # Hash the user's password for security
-#         #hashed_password = generate_password_hash(password)
+        # Hash the user's password for security
+        #hashed_password = generate_password_hash(password)
         
-#         # Store the user's information in a database
-#         # You will need to replace this with your own database code
-#         # db.insert_user(username, email, hashed_password)
+        # Store the user's information in a database
+        # You will need to replace this with your own database code
+        # db.insert_user(username, email, hashed_password)
         
-#         # Redirect the user to the login page after signup
+        # Redirect the user to the login page after signup
         
-#         flash(f'Let\'s grow together, {form.first_name}')
-#         return redirect(url_for('home'))
+        flash(f'Let\'s grow together, {form.first_name}')
+        return redirect(url_for('home'))
     
-#     # Render the signup page template for GET requests
-#     return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+    # Render the signup page template for GET requests
+    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/about')
 def about():

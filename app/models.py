@@ -1,7 +1,13 @@
 from app import db
+from sqlalchemy import Column 
 from django.db import models
 import string
 import random
+## used by cookiecutter app
+# from flask_login import UserMixin
+from sqlalchemy.ext.hybrid import hybrid_property
+# from app.database import Column, PkModel, db, reference_col, relationship
+from app import bcrypt
 
 class UserManager(models.Manager):
     def generate_public_id(self, size=12, chars=string.ascii_lowercase + string.digits):
@@ -12,7 +18,9 @@ class UserManager(models.Manager):
         return user
     
 class Ufarms(db.Model):
-    __tablename__ = 'ufarms'
+    """A host location on the app."""
+
+    __tablename__ = 'Ufarms'
     UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicFarmID = db.Column(db.String(12), unique=True, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.UserID'), nullable=True) #foreign keys not supported on planet scale.  users is parent table.
@@ -53,10 +61,15 @@ class Ufarms(db.Model):
         return '<Users {}>'.format(self.__tablename__)
 
 class Users(db.Model):
-    __tablename__ = 'users'
+    """A user of the app."""
+
+    __tablename__ = 'Users'
     UserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicID = db.Column(db.String(12), unique=True, nullable=True)
-    Name = db.Column(db.String(255), unique=True)
+    Username = db.Column(db.String(30), unique=True)
+    FirstName = Column(db.String(30), nullable=True)
+    LastName = Column(db.String(30), nullable=True)
+    _password = Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
     Contact = db.Column(db.String(255), unique=True)
@@ -64,6 +77,7 @@ class Users(db.Model):
     Bio = db.Column(db.String(255), unique=True, nullable=True)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+    IsAdmin = Column(db.Boolean(), default=False)
 
     objects = UserManager()
 
@@ -88,3 +102,22 @@ class Users(db.Model):
 
     def __repr__(self):
         return '<Users {}>'.format(self.__tablename__)
+    
+    @hybrid_property
+    def password(self):
+        """Hashed password."""
+        return self._password
+
+    @password.setter
+    def password(self, value):
+        """Set password."""
+        self._password = bcrypt.generate_password_hash(value)
+
+    def check_password(self, value):
+        """Check password."""
+        return bcrypt.check_password_hash(self._password, value)
+
+    @property
+    def full_name(self):
+        """Full user name."""
+        return f"{self.first_name} {self.last_name}"

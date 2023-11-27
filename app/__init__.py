@@ -3,6 +3,7 @@ from config import Config
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
@@ -20,6 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 migrate = Migrate(app, db)
+bcrypt = Bcrypt()
 
 from app import routes, models
 

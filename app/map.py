@@ -2,7 +2,6 @@ import folium
 import os, base64, random
 from config import Config
 from statistics import mean
-from geocoder import geocode_address 
 
 def get_map(ufarms, coordinates=None, address=None):
     print("Map")
@@ -15,10 +14,11 @@ def get_map(ufarms, coordinates=None, address=None):
 
     if coordinates:
         # Add a marker to the map at the provided coordinates
-        m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=coordinates, zoom_start=13)
+        # tiles='stamenwatercolor' currently not working from the provider
+        m = folium.Map(width=750,height=1000, location=coordinates, zoom_start=13)
     else:
         print("Coordinates not provided.")
-        m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
+        m = folium.Map(width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
 
     # Global tooltip
     # tooltip = 'Click For More Info'
