@@ -16,7 +16,6 @@ docutils==0.20
 dominate==2.7.0
 Flask==2.3.3
 Flask-Bcrypt==1.0.1
-# flask-bcrypt==3.1.13
 Flask-Bootstrap==3.3.7.1
 Flask-Migrate==4.0.4
 Flask-SQLAlchemy==3.0.5
@@ -38,7 +37,7 @@ mysql-connector-python==8.1.0
 mysqlclient==2.2.0
 numpy==1.24.3
 pandas==2.0.1
-# pkg_resources==0.0.0
+pkg_resources==0.0.0
 protobuf==4.21.12
 pycparser==2.21
 PyMySQL==1.1.0
