@@ -1,29 +1,28 @@
 import folium
-import os, csv, base64, random
-from flask import jsonify
+import os, base64, random
 from config import Config
 from statistics import mean
 
-def get_map(ufarms):
-    # query = "SELECT `Name`, `IsActive`, `Contact`, `Request`, `Privacy_lat`, `Privacy_lon` FROM Ufarms WHERE `Host` = 1;"
-
-    # names = []
-    # isactive = []
-    # contacts = []
-    # requests = []
+def get_map(ufarms, coordinates=None, address=None):
+    print("Map")
     lats = []
     lons = []
-
 
     for farm in ufarms:
         lats.append(farm.Privacy_lat)
         lons.append(farm.Privacy_lon)
 
-# create map element
-    m = folium.Map(tiles='stamenwatercolor', width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
+    if coordinates:
+        # Add a marker to the map at the provided coordinates
+        # tiles='stamenwatercolor' currently not working from the provider
+        m = folium.Map(width=750,height=1000, location=coordinates, zoom_start=13)
+    else:
+        print("Coordinates not provided.")
+        m = folium.Map(width=750,height=1000, location=[mean(lats), mean(lons)], zoom_start=13)
 
     # Global tooltip
-    tooltip = 'Click For More Info'
+    # tooltip = 'Click For More Info'
+
     # Define the legend HTML
     legend_html = '''
         <div style="position: fixed;
@@ -42,18 +41,8 @@ def get_map(ufarms):
         else: 
             icon_color = 'orange'
         icon=folium.Icon(color=icon_color, icon='leaf', prefix='fa')
+        encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
 
-        #print log for debug
-        fname = "map.py"
-        dn = os.path.abspath(fname)
-        print(os.path.dirname(dn), end="\n:)\n")
-        print(Config.STATIC_PATH)
-        print(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png')
-        try:
-            encoded = base64.b64encode(open(Config.STATIC_PATH + f'plot{random.randint(1, 4)}.png', 'rb').read())
-        except:
-            encoded = base64.b64encode(open(f'/app/app/static/plot{random.randint(1, 4)}.png', 'rb').read())
-        
         html = """
                 <head>
                     <meta charset="utf-8">
@@ -72,7 +61,7 @@ def get_map(ufarms):
         # profile_url = 'https://example.com/profile' todo
 
         if farm.Contact == "m.ehler@comcast.net":
-            iframe_content = open(Config.TEMPLATE_PATH + 'iframe_content.html', 'r').read()
+            # iframe_content = open(Config.TEMPLATE_PATH + 'iframe_content.html', 'r').read()  Attepmted to build from existing template
             js_code = """
                     <script>
                         function redirectParentPage() {
@@ -127,7 +116,6 @@ def get_map(ufarms):
                     fill=True).add_to(m)
         # Add the legend to the map
         m.get_root().html.add_child(folium.Element(legend_html))
-
-    m.save(Config.TEMPLATE_PATH + f'map.html')
-
-# END
+        #Save Map HTML to template
+        m.save(os.path.join(Config.TEMPLATE_PATH, 'map.html'))   
+    # END

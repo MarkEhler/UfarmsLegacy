@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
-from app import app, db, map
-from app.models import Ufarms
+from app import app, db, map, geocoder
+from app.models import Ufarms, Users
 # from app.forms import SignUpForm
-import os, io, json, random
+import random
 from config import Config
 from markupsafe import Markup
 
@@ -19,38 +19,58 @@ def home():
 
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
-    ufarms = Ufarms.query.all()
+    ufarms_db_table = Ufarms.query.all()
 
     if ufarms:
-        map.get_map(ufarms)
+        map.get_map(ufarms_db_table)
         print('DB connection successful')
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
 
+@app.route('/testmap', methods=['GET', 'POST'])
+def show_map2():
+    if request.method == 'POST':
+        # Access form data using request.form
+        query = request.form.get('query')
+        category = request.form.get('category')
+        # Now you have the user input in the 'query' and 'category' variables todo currently can only search farms category
+        print('User Input - Query:', query)
+        print('User Input - Category:', category)
+    ufarms_db_table = Ufarms.query.all()
+
+    if ufarms:
+        coordinates = geocoder.geocode_address(query)
+        print(coordinates)
+        map.get_map(ufarms_db_table, coordinates, query)
+        return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+    else:
+        return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
+
+
 # todo -- rather than implement this, maybe use cookie cutter method
-# @app.route('/signup', methods=['GET', 'POST'])
-# def survey():
-#     form = SignUpForm()
-#     if form.validate_on_submit():
-#         first_name = form['first_name']
-#         last_name = form['last_name']
-#         email = form['email']
+@app.route('/signup', methods=['GET', 'POST'])
+def survey():
+    form = SignUpForm()
+    if form.validate_on_submit():
+        first_name = form['first_name']
+        last_name = form['last_name']
+        email = form['email']
         
-#         # Hash the user's password for security
-#         #hashed_password = generate_password_hash(password)
+        # Hash the user's password for security
+        #hashed_password = generate_password_hash(password)
         
-#         # Store the user's information in a database
-#         # You will need to replace this with your own database code
-#         # db.insert_user(username, email, hashed_password)
+        # Store the user's information in a database
+        # You will need to replace this with your own database code
+        # db.insert_user(username, email, hashed_password)
         
-#         # Redirect the user to the login page after signup
+        # Redirect the user to the login page after signup
         
-#         flash(f'Let\'s grow together, {form.first_name}')
-#         return redirect(url_for('home'))
+        flash(f'Let\'s grow together, {form.first_name}')
+        return redirect(url_for('home'))
     
-#     # Render the signup page template for GET requests
-#     return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+    # Render the signup page template for GET requests
+    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/about')
 def about():
@@ -58,17 +78,7 @@ def about():
 
 @app.route('/survey')
 def mailing():
-    rand_int = random.randint(1, 2) #todo create a counter that counts to 18 before directing all traffic to the google
-    #flash('email copied to clipboard')
-    if rand_int == 1:
-        return redirect(url_for('mailing2'))
-    else:
-    	return render_template('mailinglist.html', title='Ufarms - Mailbox')
-
-@app.route('/mailing2')
-def mailing2():
-    #flash('email copied to clipboard')
-    return render_template('mailinglist2.html', title='Ufarms - Mailbox')
+    return render_template('mailinglist.html', title='Ufarms - Mailbox')
 
 @app.route('/redirect_about')
 def redirect_about():
@@ -88,6 +98,8 @@ def ufarmers():
 def profile():
     return render_template('profile.html', title='Test Profile Page')
 
+
+#  todo findme - placeholder for futuer listed directories
 @app.route('/ufarms', methods=['GET', 'POST'])
 def ufarms():
     return render_template('ufarms.html', title='Test Farm Page')

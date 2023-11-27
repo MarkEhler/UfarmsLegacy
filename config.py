@@ -1,22 +1,20 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-
+print(basedir)
+print(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 class Config(object):
-    # # ...
-    # env_var = os.getenv("host")
-    # print(f"Value of 'host' environment variable: {env_var}")
-    # DB_HOST = env_var.strip() if env_var else "default_host"
-    CA_CERT = os.environ.get('CA_CERT')
+    # CA_CERT = os.environ.get('CA_CERT')
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-# findme todo ^^^
+    MAPBOX_TOKEN = os.environ.get('MAPBOX_TOKEN')
+    # findme todo ^^^
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
     APP_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    TEMPLATE_PATH = os.path.join(APP_PATH, 'Ufarms/app/templates/')
-    STATIC_PATH = os.path.join(APP_PATH, 'Ufarms/app/static/')
-    DATA_PATH = os.path.join(APP_PATH, 'Ufarms/app/data/')
+    TEMPLATE_PATH = os.path.join(basedir, 'app/templates/')
+    STATIC_PATH = os.path.join(basedir, 'app/static/')
+    DATA_PATH = os.path.join(basedir, 'app/data/')
 
     ENVIRONMENT = os.getenv("ENVIRONMENT")
     if ENVIRONMENT == 'develop':
