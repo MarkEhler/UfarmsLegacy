@@ -2,7 +2,7 @@ alembic==1.11.3
 asgiref==3.7.2
 azure-core==1.26.4
 azure-storage-blob==12.16.0
-backports.zoneinfo==0.2.1
+backports.zoneinfo;python_version<"3.11"
 bcrypt==4.0.1
 blinker==1.6.2
 branca==0.6.0
