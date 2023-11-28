@@ -37,20 +37,6 @@ class LoginForm(FlaskForm):
             return False
         return True
 
-class Search_Farms(FlaskForm):
-
-    location = StringField('Address',
-                        validators=[DataRequired(), Length(min=5, max=30)],
-                        render_kw={'placeholder': '55555 Sleighbell St. Northpole, NP 00001'}) 
-    date = DateField('Start Date', format = '%m/%d/%Y', description = 'Time',
-                        render_kw={'placeholder': 'Format: mm-dd-YYYY'},
-                        validators=[Length(min=10, max=10)]) 
-    time_span = RadioField('Time Span', 
-                        choices=[('1','1 day'),('3','3 days'), ('7', '7 days')],
-                        default= '1', validators=[DataRequired()]) 
-    submit = SubmitField('Look for Sites')
-
-
 class RegisterForm(FlaskForm):
     """Register form."""
 
@@ -87,6 +73,20 @@ class RegisterForm(FlaskForm):
             self.email.errors.append("Email already registered")
             return False
         return True
+
+class Search_Farms(FlaskForm):
+
+    location = StringField('Address',
+                        validators=[DataRequired(), Length(min=5, max=30)],
+                        render_kw={'placeholder': '55555 Sleighbell St. Northpole, NP 00001'}) 
+    date = DateField('Start Date', format = '%m/%d/%Y', description = 'Time',
+                        render_kw={'placeholder': 'Format: mm-dd-YYYY'},
+                        validators=[Length(min=10, max=10)]) 
+    time_span = RadioField('Time Span', 
+                        choices=[('1','1 day'),('3','3 days'), ('7', '7 days')],
+                        default= '1', validators=[DataRequired()]) 
+    submit = SubmitField('Look for Sites')
+
 
 # class SignUpForm(FlaskForm):
 #     first_name = StringField('First Name', description = 'First Name',

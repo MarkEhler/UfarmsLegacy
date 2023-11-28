@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
-from app import app, db, map, geocoder
+from app import app, db, map, geocoder, forms
 from app.models import Ufarms, Users
 # from app.forms import SignUpForm
 import random
@@ -16,6 +16,55 @@ def index():
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
     return render_template('home.html', template_folder=Config.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
+
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = forms.RegisterForm()
+    if form.validate_on_submit():
+        first_name = form['first_name']
+        last_name = form['last_name']
+        email = form['email']
+        
+        # Hash the user's password for security
+        #hashed_password = generate_password_hash(password)
+        
+        # Store the user's information in a database
+        # You will need to replace this with your own database code
+        # db.insert_user(username, email, hashed_password)
+        
+        # Redirect the user to the login page after signup
+        
+        flash(f'Let\'s grow together, {form.first_name}')
+        return redirect(url_for('home'))
+    
+    # Render the signup page template for GET requests
+    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+
+@app.route('/login', methods=['GET', 'POST'])
+def register():
+    form = forms.LoginForm()
+    if form.validate_on_submit():
+        first_name = form['first_name']
+        last_name = form['last_name']
+        email = form['email']
+        
+        # Hash the user's password for security
+        #hashed_password = generate_password_hash(password)
+        
+        # Store the user's information in a database
+        # You will need to replace this with your own database code
+        # db.insert_user(username, email, hashed_password)
+        
+        # Redirect the user to the login page after signup
+        
+        flash(f'Let\'s grow together, {form.first_name}')
+        return redirect(url_for('home'))
+    
+    # Render the signup page template for GET requests
+    return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+
 
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
@@ -46,31 +95,6 @@ def show_map2():
         return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
     else:
         return render_template('formatted_map_copy.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
-
-
-# todo -- rather than implement this, maybe use cookie cutter method
-@app.route('/signup', methods=['GET', 'POST'])
-def survey():
-    form = SignUpForm()
-    if form.validate_on_submit():
-        first_name = form['first_name']
-        last_name = form['last_name']
-        email = form['email']
-        
-        # Hash the user's password for security
-        #hashed_password = generate_password_hash(password)
-        
-        # Store the user's information in a database
-        # You will need to replace this with your own database code
-        # db.insert_user(username, email, hashed_password)
-        
-        # Redirect the user to the login page after signup
-        
-        flash(f'Let\'s grow together, {form.first_name}')
-        return redirect(url_for('home'))
-    
-    # Render the signup page template for GET requests
-    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/about')
 def about():
