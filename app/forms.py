@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, RadioField, BooleanField
 from wtforms.validators import DataRequired, Length
 from wtforms import DateField, PasswordField
 
-from app.user.models import User
+from app.models import Users as User
 # templates for user input fields - these variables will be used to call the APIs and web scrape
 
 class LoginForm(FlaskForm):

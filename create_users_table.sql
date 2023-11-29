@@ -4,7 +4,7 @@ CREATE TABLE users (
   Name varchar(255) NOT NULL UNIQUE,
   IsActive BOOLEAN DEFAULT True,
   AddressStr varchar(255) UNIQUE,
-  Contact varchar(255) UNIQUE,
+  Email varchar(255) UNIQUE,
   Host BOOLEAN DEFAULT False,
   Bio varchar(255),
   CreatedAt datetime DEFAULT CURRENT_TIMESTAMP,
@@ -12,5 +12,5 @@ CREATE TABLE users (
 );
 
 
-INSERT INTO users (Name, AddressStr, Contact, Bio)
+INSERT INTO users (Name, AddressStr, Email, Bio)
 VALUES ('John Doe', '123 Main St, Burlington, VT', 'john.doe@example.com', 'A short bio about John Doe');

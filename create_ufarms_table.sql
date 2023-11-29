@@ -4,7 +4,7 @@ CREATE TABLE Ufarms (
     UfarmID INT PRIMARY KEY AUTO_INCREMENT,
     PublicFarmID VARCHAR(12) UNIQUE,
     UserID INT,
-    Name VARCHAR(255) UNIQUE,
+    FarmName VARCHAR(255) UNIQUE,
     IsActive BOOLEAN,
     AddressStr VARCHAR(255) UNIQUE,
     Contact VARCHAR(255) UNIQUE,
@@ -17,7 +17,7 @@ CREATE TABLE Ufarms (
     -- FOREIGN KEY (UserID) REFERENCES users(UserID)
 
 -- Insert Data
-INSERT INTO Ufarms (UserID, Name, IsActive, AddressStr, Contact, Request, Privacy_lat, Privacy_lon)
+INSERT INTO Ufarms (UserID, FarmName, IsActive, AddressStr, Contact, Request, Privacy_lat, Privacy_lon)
 VALUES
     (12, 'Shelburne Farmer Market', 1, 'Church Street, Shelburne, Chittenden County, Vermont, 05482, United States', 'info@sbpavt.com', 'vendor', 44.378, -73.2275),
     (41, 'City Market Onion River Co-op', 1, '82, South Winooski Avenue, Downtown, Burlington, Chittenden County, Vermont, 05401, United States', 'info@citymarket.coop', 'watering', 44.4773, -73.2121),

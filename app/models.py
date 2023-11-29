@@ -24,7 +24,7 @@ class Ufarms(db.Model):
     UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicFarmID = db.Column(db.String(12), unique=True, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.UserID'), nullable=True) #foreign keys not supported on planet scale.  users is parent table.
-    Name = db.Column(db.String(255), unique=True)
+    FarmName = db.Column(db.String(255), unique=True)
     IsActive = db.Column(db.Boolean)
     AddressStr = db.Column(db.String(255), unique=True)
     Contact = db.Column(db.String(255), unique=True)
@@ -46,7 +46,7 @@ class Ufarms(db.Model):
             'UfarmID': self.UfarmID,
             'PublicFarmID': self.PublicFarmID,
             'UserID': self.UserID,
-            'Name': self.Name,
+            'FarmName': self.Name,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
             'Contact': self.Contact,
@@ -72,7 +72,7 @@ class Users(db.Model):
     _password = Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
-    Contact = db.Column(db.String(255), unique=True)
+    Email = db.Column(db.String(255), unique=True)
     Host = db.Column(db.Boolean, default=False)
     Bio = db.Column(db.String(255), unique=True, nullable=True)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
@@ -93,7 +93,7 @@ class Users(db.Model):
             'Name': self.Name,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
-            'Contact': self.Contact,
+            'Email': self.Contact,
             'Host': self.Host,
             'Bio': self.Bio,
             'CreatedAt': self.CreatedAt,
