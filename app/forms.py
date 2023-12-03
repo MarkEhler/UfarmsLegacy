@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Length
-from wtforms import DateField, PasswordField
+from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 from app.models import Users as User
 # templates for user input fields - these variables will be used to call the APIs and web scrape
@@ -11,6 +10,7 @@ class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
@@ -40,29 +40,18 @@ class LoginForm(FlaskForm):
 class RegisterForm(FlaskForm):
     """Register form."""
 
-    username = StringField(
-        "Username", validators=[DataRequired(), Length(min=3, max=25)]
-    )
-    email = StringField(
-        "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]
-    )
-    password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=40)]
-    )
-    confirm = PasswordField(
-        "Verify password",
+    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=25)])
+    email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=40)])
+    confirm_password = PasswordField(
+        "Confirm Password",
         [DataRequired(), EqualTo("password", message="Passwords must match")],
     )
+    submit = SubmitField("Register")
 
-    def __init__(self, *args, **kwargs):
-        """Create instance."""
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        self.user = None
-
-    def validate(self, **kwargs):
+def validate(self):
         """Validate the form."""
-        initial_validation = super(RegisterForm, self).validate()
-        if not initial_validation:
+        if not super().validate():
             return False
         user = User.query.filter_by(username=self.username.data).first()
         if user:
@@ -72,7 +61,18 @@ class RegisterForm(FlaskForm):
         if user:
             self.email.errors.append("Email already registered")
             return False
+        # Update the user model with hashed password
+        self.user = User(
+            username=self.username.data,
+            email=self.email.data,
+            password=self.password.data,
+        )
         return True
+
+    def __init__(self, *args, **kwargs):
+        """Create instance."""
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.user = None
 
 class Search_Farms(FlaskForm):
 

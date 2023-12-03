@@ -44,14 +44,16 @@ def signup():
 
 @app.route('/login', methods=['GET', 'POST'])
 def register():
-    form = forms.LoginForm()
+    form = forms.RegisterForm()
     if form.validate_on_submit():
-        first_name = form['first_name']
-        last_name = form['last_name']
+        # first_name = form['first_name']
+        # last_name = form['last_name']
         email = form['email']
+        username = form['username']
+        password = form['password']
         
         # Hash the user's password for security
-        #hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(password)
         
         # Store the user's information in a database
         # You will need to replace this with your own database code
@@ -63,7 +65,8 @@ def register():
         return redirect(url_for('home'))
     
     # Render the signup page template for GET requests
-    return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+    return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup', form=form)
+
 
 
 @app.route('/map', methods=['GET', 'POST'])
