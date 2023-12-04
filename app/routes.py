@@ -55,13 +55,19 @@ def register():
         # Hash the user's password for security
         hashed_password = generate_password_hash(password)
         
-        # Store the user's information in a database
-        # You will need to replace this with your own database code
-        # db.insert_user(username, email, hashed_password)
-        
+        # Create a new user instance with the form data
+        new_user = Users(
+            username=form.username.data,
+            email=form.email.data,
+            password=hashed_password  # Note: You should hash the password before saving it
+        )
+
+        # Add the new user to the database
+        db.session.add(new_user)
+        db.session.commit()
+
         # Redirect the user to the login page after signup
-        
-        flash(f'Let\'s grow together, {form.first_name}')
+        flash(f'Let\'s grow together, {username}')
         return redirect(url_for('home'))
     
     # Render the signup page template for GET requests

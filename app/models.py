@@ -1,8 +1,9 @@
-from app import db
+from app import db, bcrypt
 from sqlalchemy import Column 
 from django.db import models
-import string
-import random
+import string, random
+from sqlalchemy.ext.hybrid import hybrid_property
+
 ## used by cookiecutter app
 # from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -35,11 +36,11 @@ class Ufarms(db.Model):
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     objects = UserManager()
-
-    def save(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(Ufarms, self).__init__(*args, **kwargs)
         if not self.PublicFarmID:
             self.PublicFarmID = self.objects.generate_public_id()
-        super().save(*args, **kwargs)
+
 
     def serialize(self):
         return {
@@ -67,9 +68,9 @@ class Users(db.Model):
     UserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicID = db.Column(db.String(12), unique=True, nullable=True)
     Username = db.Column(db.String(30), unique=True)
-    FirstName = Column(db.String(30), nullable=True)
-    LastName = Column(db.String(30), nullable=True)
-    _password = Column("password", db.LargeBinary(128), nullable=True)
+    Fname = db.Column(db.String(30), nullable=True)
+    Lname = db.Column(db.String(30), nullable=True)
+    _password = db.Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
     Email = db.Column(db.String(255), unique=True)
@@ -77,23 +78,26 @@ class Users(db.Model):
     Bio = db.Column(db.String(255), unique=True, nullable=True)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
-    IsAdmin = Column(db.Boolean(), default=False)
+    IsAdmin = db.Column(db.Boolean(), default=False)
 
     objects = UserManager()
 
-    def save(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(Users, self).__init__(*args, **kwargs)
         if not self.PublicID:
             self.PublicID = self.objects.generate_public_id()
-        super().save(*args, **kwargs)
 
     def serialize(self):
         return {
             'UserID': self.UserID,
             'PublicID': self.PublicID,
-            'Name': self.Name,
+            'Username': self.Username,
+            'Fname': self.FirstName,
+            'Lname': self.LastName,
+            '_password': self._password,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
-            'Email': self.Contact,
+            'Email': self.Email,
             'Host': self.Host,
             'Bio': self.Bio,
             'CreatedAt': self.CreatedAt,
@@ -120,4 +124,4 @@ class Users(db.Model):
     @property
     def full_name(self):
         """Full user name."""
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.Fname} {self.Lname}"

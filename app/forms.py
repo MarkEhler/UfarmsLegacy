@@ -49,11 +49,11 @@ class RegisterForm(FlaskForm):
     )
     submit = SubmitField("Register")
 
-def validate(self):
+    def validate(self, **kwargs):
         """Validate the form."""
-        if not super().validate():
+        if not super().validate(**kwargs):
             return False
-        user = User.query.filter_by(username=self.username.data).first()
+        user = User.query.filter_by(Username=self.username.data).first()
         if user:
             self.username.errors.append("Username already registered")
             return False
@@ -63,7 +63,7 @@ def validate(self):
             return False
         # Update the user model with hashed password
         self.user = User(
-            username=self.username.data,
+            Username=self.username.data,
             email=self.email.data,
             password=self.password.data,
         )
