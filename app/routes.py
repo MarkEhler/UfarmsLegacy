@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
-from app import app, db, map, geocoder, forms
+from app import app, db, map, geocoder, forms, bcrypt
 from app.models import Ufarms, Users
 # from app.forms import SignUpForm
 import random
@@ -19,28 +19,19 @@ def home():
 
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    form = forms.RegisterForm()
-    if form.validate_on_submit():
-        first_name = form['first_name']
-        last_name = form['last_name']
-        email = form['email']
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     form = forms.RegisterForm()
+#     if form.validate_on_submit():
+#         first_name = form['first_name']
+#         last_name = form['last_name']
+#         email = form['email']
         
-        # Hash the user's password for security
-        #hashed_password = generate_password_hash(password)
-        
-        # Store the user's information in a database
-        # You will need to replace this with your own database code
-        # db.insert_user(username, email, hashed_password)
-        
-        # Redirect the user to the login page after signup
-        
-        flash(f'Let\'s grow together, {form.first_name}')
-        return redirect(url_for('home'))
+#         flash(f'Let\'s grow together, {form.first_name}')
+#         return redirect(url_for('home'))
     
-    # Render the signup page template for GET requests
-    return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
+#     # Render the signup page template for GET requests
+#     return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/login', methods=['GET', 'POST'])
 def register():
@@ -53,23 +44,21 @@ def register():
         password = form['password']
         
         # Hash the user's password for security
-        hashed_password = generate_password_hash(password)
+        # todo generate_password_hash is not defined
+        hashed_password = bcrypt.generate_password_hash(password)
         
         # Create a new user instance with the form data
         new_user = Users(
-            username=form.username.data,
-            email=form.email.data,
-            password=hashed_password  # Note: You should hash the password before saving it
+            Username=form.username.data,
+            Email=form.email.data,
+            password=hashed_password
         )
-
         # Add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-
         # Redirect the user to the login page after signup
         flash(f'Let\'s grow together, {username}')
         return redirect(url_for('home'))
-    
     # Render the signup page template for GET requests
     return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup', form=form)
 

@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-
-from app.models import Users as User
+from app.models import Users
+from app import bcrypt
 # templates for user input fields - these variables will be used to call the APIs and web scrape
 
 class LoginForm(FlaskForm):
@@ -23,18 +23,12 @@ class LoginForm(FlaskForm):
         if not initial_validation:
             return False
 
-        self.user = User.query.filter_by(username=self.username.data).first()
+        self.user = Users.query.filter_by(username=self.username.data).first()
         if not self.user:
             self.username.errors.append("Unknown username")
             return False
 
-        if not self.user.check_password(self.password.data):
-            self.password.errors.append("Invalid password")
-            return False
-
-        if not self.user.active:
-            self.username.errors.append("User not activated")
-            return False
+        # bcrypt.check_password_hash
         return True
 
 class RegisterForm(FlaskForm):
@@ -53,19 +47,19 @@ class RegisterForm(FlaskForm):
         """Validate the form."""
         if not super().validate(**kwargs):
             return False
-        user = User.query.filter_by(Username=self.username.data).first()
+        user = Users.query.filter_by(Username=self.username.data).first()
         if user:
             self.username.errors.append("Username already registered")
             return False
-        user = User.query.filter_by(email=self.email.data).first()
+        user = Users.query.filter_by(email=self.email.data).first()
         if user:
             self.email.errors.append("Email already registered")
             return False
         # Update the user model with hashed password
-        self.user = User(
+        self.user = Users(
             Username=self.username.data,
-            email=self.email.data,
-            password=self.password.data,
+            Email=self.email.data,
+            password=bcrypt.generate_password_hash(self.password.data),
         )
         return True
 
@@ -86,31 +80,3 @@ class Search_Farms(FlaskForm):
                         choices=[('1','1 day'),('3','3 days'), ('7', '7 days')],
                         default= '1', validators=[DataRequired()]) 
     submit = SubmitField('Look for Sites')
-
-
-# class SignUpForm(FlaskForm):
-#     first_name = StringField('First Name', description = 'First Name',
-#         validators= [DataRequired()])
-#     last_name = StringField('Last Name', description = 'First Name',
-#         validators= [DataRequired()])
-#     email = StringField('Email', description = 'Email',
-#         validators= [DataRequired()])
-#     consent = BooleanField('I want to recieve updates on the progress of Ufarms community agriculture project',
-#         validators= [DataRequired()])
-#     submit = SubmitField('Sign up')
-#     '''
-#     password = StringField('Password', description = 'At least 7 characters number and symbol',
-#         validators= [])#should be a dollar ammount float/integer
-#     password_confirm = StringField('Repeat Password', description = 'password confirm',
-#         validators= [])#should be a dollar ammount float/integer
-    
-#     # Hash the user's password for security
-#     hashed_password = generate_password_hash(password)
-    
-#     # Store the user's information in a database
-#     # You will need to replace this with your own database code
-#     db.insert_user(username, email, hashed_password)
-#     '''
-#     news_updates = RadioField('Does the utility provider charge for peak hours?',
-#         description = 'sign up', choices=[('Yes', 1, "No", 0)], validators=[DataRequired()])
-#     #submit = SubmitField('Submit')

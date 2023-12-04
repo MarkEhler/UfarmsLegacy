@@ -47,7 +47,7 @@ class Ufarms(db.Model):
             'UfarmID': self.UfarmID,
             'PublicFarmID': self.PublicFarmID,
             'UserID': self.UserID,
-            'FarmName': self.Name,
+            'FarmName': self.FarmName,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
             'Contact': self.Contact,
@@ -70,15 +70,16 @@ class Users(db.Model):
     Username = db.Column(db.String(30), unique=True)
     Fname = db.Column(db.String(30), nullable=True)
     Lname = db.Column(db.String(30), nullable=True)
-    _password = db.Column("password", db.LargeBinary(128), nullable=True)
+    password = db.Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
     Email = db.Column(db.String(255), unique=True)
-    Host = db.Column(db.Boolean, default=False)
     Bio = db.Column(db.String(255), unique=True, nullable=True)
+    IsHost = db.Column(db.Boolean(), default=False)
+    IsAdmin = db.Column(db.Boolean(), default=False)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
-    IsAdmin = db.Column(db.Boolean(), default=False)
+    
 
     objects = UserManager()
 
@@ -92,14 +93,14 @@ class Users(db.Model):
             'UserID': self.UserID,
             'PublicID': self.PublicID,
             'Username': self.Username,
-            'Fname': self.FirstName,
-            'Lname': self.LastName,
-            '_password': self._password,
+            'Fname': self.Fname,
+            'Lname': self.Lname,
+            'password': self.password,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
             'Email': self.Email,
-            'Host': self.Host,
             'Bio': self.Bio,
+            'IsHost': self.IsHost,
             'CreatedAt': self.CreatedAt,
             'UpdatedAt': self.UpdatedAt
         }
@@ -110,16 +111,16 @@ class Users(db.Model):
     @hybrid_property
     def password(self):
         """Hashed password."""
-        return self._password
+        return self.password
 
     @password.setter
     def password(self, value):
         """Set password."""
-        self._password = bcrypt.generate_password_hash(value)
+        self.password = bcrypt.generate_password_hash(value)
 
     def check_password(self, value):
         """Check password."""
-        return bcrypt.check_password_hash(self._password, value)
+        return bcrypt.check_password_hash(self.password, value)
 
     @property
     def full_name(self):
