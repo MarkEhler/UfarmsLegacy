@@ -70,7 +70,7 @@ class Users(db.Model):
     Username = db.Column(db.String(30), unique=True)
     Fname = db.Column(db.String(30), nullable=True)
     Lname = db.Column(db.String(30), nullable=True)
-    password = db.Column("password", db.LargeBinary(128), nullable=True)
+    _password = db.Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
     Email = db.Column(db.String(255), unique=True)
@@ -111,12 +111,12 @@ class Users(db.Model):
     @hybrid_property
     def password(self):
         """Hashed password."""
-        return self.password
+        return self._password
 
     @password.setter
     def password(self, value):
         """Set password."""
-        self.password = bcrypt.generate_password_hash(value)
+        self._password = bcrypt.generate_password_hash(value)
 
     def check_password(self, value):
         """Check password."""

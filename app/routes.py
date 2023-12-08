@@ -37,31 +37,29 @@ def home():
 def register():
     form = forms.RegisterForm()
     if form.validate_on_submit():
-        # first_name = form['first_name']
-        # last_name = form['last_name']
-        email = form['email']
-        username = form['username']
-        password = form['password']
-        
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data  # Use form.password.data to get the password value
+
         # Hash the user's password for security
-        # todo generate_password_hash is not defined
-        hashed_password = bcrypt.generate_password_hash(password)
-        
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')  # Decode the bytes to string
+
         # Create a new user instance with the form data
         new_user = Users(
-            Username=form.username.data,
-            Email=form.email.data,
+            Username=username,
+            Email=email,
             password=hashed_password
         )
         # Add the new user to the database
         db.session.add(new_user)
         db.session.commit()
+
         # Redirect the user to the login page after signup
         flash(f'Let\'s grow together, {username}')
         return redirect(url_for('home'))
+
     # Render the signup page template for GET requests
     return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup', form=form)
-
 
 
 @app.route('/map', methods=['GET', 'POST'])
