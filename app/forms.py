@@ -2,7 +2,7 @@ from flask import redirect
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, EqualTo #Email
 from app.models import Users
 from app import bcrypt
 # templates for user input fields - these variables will be used to call the APIs and web scrape
@@ -48,7 +48,7 @@ class RegisterForm(FlaskForm):
     """Register form."""
 
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=25)])
-    email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
+    # email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=40)])
     confirm_password = PasswordField(
         "Confirm Password",
@@ -64,10 +64,10 @@ class RegisterForm(FlaskForm):
         if user:
             self.username.errors.append("Username already registered")
             return False
-        user = Users.query.filter_by(Email=self.email.data).first()
-        if user:
-            self.email.errors.append("Email already registered")
-            return False
+        # user = Users.query.filter_by(Email=self.email.data).first()
+        # if user:
+        #     self.email.errors.append("Email already registered")
+        #     return False
         # Update the user model with hashed password
         self.user = Users(
             Username=self.username.data,
