@@ -12,7 +12,7 @@ class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
-    email = StringField("Email", validators=[DataRequired()])
+    # email = StringField("Email", validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
@@ -32,11 +32,11 @@ class LoginForm(FlaskForm):
 
         # bcrypt.check_password_hash todo
 
-        self.user = Users(
-            Username=self.username.data,
-            Email=self.email.data,
-            password=bcrypt.generate_password_hash(self.password.data),
-        )
+        # self.user = Users(
+        #     Username=self.username.data,
+        #     Email=self.email.data,
+        #     password=bcrypt.generate_password_hash(self.password.data),
+        # )
 
         # Redirect to the user's profile page
         return redirect(self.user.get_profile_url())
