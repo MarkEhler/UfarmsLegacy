@@ -1,9 +1,10 @@
+from flask import redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, RadioField, BooleanField
-from wtforms.validators import DataRequired, Length
-from wtforms import DateField, PasswordField
-
-from app.user.models import User
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField, TextAreaField
+from wtforms.validators import DataRequired, Length, Email, EqualTo
+from app.models import Users
+from app import bcrypt
 # templates for user input fields - these variables will be used to call the APIs and web scrape
 
 class LoginForm(FlaskForm):
@@ -11,6 +12,7 @@ class LoginForm(FlaskForm):
 
     username = StringField("Username", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email", validators=[DataRequired()])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
@@ -23,19 +25,70 @@ class LoginForm(FlaskForm):
         if not initial_validation:
             return False
 
-        self.user = User.query.filter_by(username=self.username.data).first()
+        self.user = Users.query.filter_by(username=self.username.data).first()
         if not self.user:
             self.username.errors.append("Unknown username")
             return False
 
-        if not self.user.check_password(self.password.data):
-            self.password.errors.append("Invalid password")
-            return False
+        # bcrypt.check_password_hash todo
 
-        if not self.user.active:
-            self.username.errors.append("User not activated")
+        self.user = Users(
+            Username=self.username.data,
+            Email=self.email.data,
+            password=bcrypt.generate_password_hash(self.password.data),
+        )
+
+        # Redirect to the user's profile page
+        return redirect(self.user.get_profile_url())
+    
+    def get_profile_url(self):
+            return f"/profile/{self.Username}"
+    
+class RegisterForm(FlaskForm):
+    """Register form."""
+
+    username = StringField("Username", validators=[DataRequired(), Length(min=3, max=25)])
+    email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
+    password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=40)])
+    confirm_password = PasswordField(
+        "Confirm Password",
+        [DataRequired(), EqualTo("password", message="Passwords must match")],
+    )
+    submit = SubmitField("Register")
+
+    def validate(self, **kwargs):
+        """Validate the form."""
+        if not super().validate(**kwargs):
             return False
-        return True
+        user = Users.query.filter_by(Username=self.username.data).first()
+        if user:
+            self.username.errors.append("Username already registered")
+            return False
+        user = Users.query.filter_by(Email=self.email.data).first()
+        if user:
+            self.email.errors.append("Email already registered")
+            return False
+        # Update the user model with hashed password
+        self.user = Users(
+            Username=self.username.data,
+            Email=self.email.data,
+            password=bcrypt.generate_password_hash(self.password.data),
+        )
+
+        # Redirect to the user's profile page
+        return redirect(self.user.get_profile_url())
+
+    def __init__(self, *args, **kwargs):
+        """Create instance."""
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.user = None
+
+class ProfileForm(FlaskForm):
+    fname = StringField("First Name")
+    lname = StringField("Last Name")
+    bio = TextAreaField("Bio")
+    profile_pic = FileField("Profile Picture", validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
+    submit = SubmitField("Save")
 
 class Search_Farms(FlaskForm):
 
@@ -50,67 +103,3 @@ class Search_Farms(FlaskForm):
                         default= '1', validators=[DataRequired()]) 
     submit = SubmitField('Look for Sites')
 
-
-class RegisterForm(FlaskForm):
-    """Register form."""
-
-    username = StringField(
-        "Username", validators=[DataRequired(), Length(min=3, max=25)]
-    )
-    email = StringField(
-        "Email", validators=[DataRequired(), Email(), Length(min=6, max=40)]
-    )
-    password = PasswordField(
-        "Password", validators=[DataRequired(), Length(min=6, max=40)]
-    )
-    confirm = PasswordField(
-        "Verify password",
-        [DataRequired(), EqualTo("password", message="Passwords must match")],
-    )
-
-    def __init__(self, *args, **kwargs):
-        """Create instance."""
-        super(RegisterForm, self).__init__(*args, **kwargs)
-        self.user = None
-
-    def validate(self, **kwargs):
-        """Validate the form."""
-        initial_validation = super(RegisterForm, self).validate()
-        if not initial_validation:
-            return False
-        user = User.query.filter_by(username=self.username.data).first()
-        if user:
-            self.username.errors.append("Username already registered")
-            return False
-        user = User.query.filter_by(email=self.email.data).first()
-        if user:
-            self.email.errors.append("Email already registered")
-            return False
-        return True
-
-# class SignUpForm(FlaskForm):
-#     first_name = StringField('First Name', description = 'First Name',
-#         validators= [DataRequired()])
-#     last_name = StringField('Last Name', description = 'First Name',
-#         validators= [DataRequired()])
-#     email = StringField('Email', description = 'Email',
-#         validators= [DataRequired()])
-#     consent = BooleanField('I want to recieve updates on the progress of Ufarms community agriculture project',
-#         validators= [DataRequired()])
-#     submit = SubmitField('Sign up')
-#     '''
-#     password = StringField('Password', description = 'At least 7 characters number and symbol',
-#         validators= [])#should be a dollar ammount float/integer
-#     password_confirm = StringField('Repeat Password', description = 'password confirm',
-#         validators= [])#should be a dollar ammount float/integer
-    
-#     # Hash the user's password for security
-#     hashed_password = generate_password_hash(password)
-    
-#     # Store the user's information in a database
-#     # You will need to replace this with your own database code
-#     db.insert_user(username, email, hashed_password)
-#     '''
-#     news_updates = RadioField('Does the utility provider charge for peak hours?',
-#         description = 'sign up', choices=[('Yes', 1, "No", 0)], validators=[DataRequired()])
-#     #submit = SubmitField('Submit')

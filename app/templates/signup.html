@@ -3,55 +3,42 @@
 {% extends "layout.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block app_content %}
-    <h1>Sign right up</h1>
-    <form action="{{ url_for('signup') }}" method="post" novalidate>
-<!--         <input type="text" name="projectFilepath"> -->
-        {{ form.hidden_tag() }}
-                <div class="form-group">
-                    {{ form.fname.label(class="form-control-label") }}
-
-                    {% if form.fname.errors %}
-                        {{ form.first_name(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.fname.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.fname(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.lname.label(class="form-control-label") }}
-                    {% if form.lname.errors %}
-                        {{ form.lname(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.last_name.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}
-                        {% endif %}
-                    </div>
-                    <div class="form-group">
-                        {{ form.username.label(class="form-control-label") }}
-                        {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control-lg is-invalid") }}
-                            <div class="invalid-feedback">
-                                {% for error in form.last_name.errors %}
-                                    <span>{{ error }}</span>
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            {{ form.username(class="form-control form-control-lg") }}
-                        {% endif %}
-        <p>{{ form.email.label }} {{ form.email() }}</p>
-            {% for error in form.email.errors %}
-            <span style="color: red;">[{{ error }}]</span>
+<body>
+    <form method="POST" action="{{ url_for('register') }}">
+    {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="username">Username</label>
+            {{ form.username(class="form-control", placeholder="Enter your username") }}
+            {% for error in form.username.errors %}
+                <small class="text-danger">{{ error }}</small>
             {% endfor %}
-        <p>{{ form.submit(class="btn btn-outline-info") }}</p> 
+        </div>
 
+        <div class="form-group">
+            <label for="email">Email</label>
+            {{ form.email(class="form-control", placeholder="Enter your email") }}
+            {% for error in form.email.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            {{ form.password(class="form-control", placeholder="Enter your password") }}
+            {% for error in form.password.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Verify Password</label>
+            {{ form.confirm_password(class="form-control", placeholder="Enter your password again") }}
+            {% for error in form.confirm_password.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
     </form>
-    <!-- last_name : <input type="text" id=last_name> -->
+</body>
 {% endblock %}
