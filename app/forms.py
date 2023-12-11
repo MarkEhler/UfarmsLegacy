@@ -1,5 +1,7 @@
+from flask import redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from app.models import Users
 from app import bcrypt
@@ -28,9 +30,20 @@ class LoginForm(FlaskForm):
             self.username.errors.append("Unknown username")
             return False
 
-        # bcrypt.check_password_hash
-        return True
+        # bcrypt.check_password_hash todo
 
+        self.user = Users(
+            Username=self.username.data,
+            Email=self.email.data,
+            password=bcrypt.generate_password_hash(self.password.data),
+        )
+
+        # Redirect to the user's profile page
+        return redirect(self.user.get_profile_url())
+    
+    def get_profile_url(self):
+            return f"/profile/{self.Username}"
+    
 class RegisterForm(FlaskForm):
     """Register form."""
 
@@ -61,12 +74,21 @@ class RegisterForm(FlaskForm):
             Email=self.email.data,
             password=bcrypt.generate_password_hash(self.password.data),
         )
-        return True
+
+        # Redirect to the user's profile page
+        return redirect(self.user.get_profile_url())
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.user = None
+
+class ProfileForm(FlaskForm):
+    fname = StringField("First Name")
+    lname = StringField("Last Name")
+    bio = TextAreaField("Bio")
+    profile_pic = FileField("Profile Picture", validators=[FileAllowed(['jpg', 'png'], 'Images only!')])
+    submit = SubmitField("Save")
 
 class Search_Farms(FlaskForm):
 
@@ -80,3 +102,4 @@ class Search_Farms(FlaskForm):
                         choices=[('1','1 day'),('3','3 days'), ('7', '7 days')],
                         default= '1', validators=[DataRequired()]) 
     submit = SubmitField('Look for Sites')
+

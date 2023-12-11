@@ -11,6 +11,7 @@ CREATE TABLE Users (
   IsHost BOOLEAN DEFAULT False,
   Bio varchar(255),
   IsAdmin BOOLEAN DEFAULT False,
+  ProfilePic varchar(255),
   CreatedAt datetime DEFAULT CURRENT_TIMESTAMP,
   UpdatedAt datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

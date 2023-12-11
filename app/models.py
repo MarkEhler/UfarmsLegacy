@@ -77,6 +77,7 @@ class Users(db.Model):
     Bio = db.Column(db.String(255), unique=True, nullable=True)
     IsHost = db.Column(db.Boolean(), default=False)
     IsAdmin = db.Column(db.Boolean(), default=False)
+    ProfilePic = db.Column(db.String(255), unique=True, nullable=True)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
     
@@ -112,6 +113,9 @@ class Users(db.Model):
     def password(self):
         """Hashed password."""
         return self._password
+    
+    def get_profile_url(self):
+        return f"/profile/{self.Username}"
 
     @password.setter
     def password(self, value):

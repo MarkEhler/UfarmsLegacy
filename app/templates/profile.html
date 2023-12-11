@@ -49,32 +49,31 @@
 
 <body>
   <div id="container">
-    <img id="profile-image" src="static/mark_pic.jpg" alt="Profile Image">
-    <h1>Mark Ehler</h1>
-    <br>
+    <img id="profile-image" src="{{ url_for('static', filename='mark_pic.jpg') }}" alt="Profile Image">
+    <h1>{{ user.Fname }} {{ user.Lname }}</h1>
+    
     <div class="profile-section">
-      <h2>About Me</h2>
-      <p>Let's grow together.</p>
+      <h2>About</h2>
+      <p>{{ user.Bio }}</p>
     </div>
     
     <div class="profile-section">
       <h2>Host Farm</h2>
-      <p>Nada One Field</p>
-      <p></p>
+      <p>{{ user.IsHost }}</p>
+      <p>{{ user.AddressStr }}</p>
     </div>
     
-    <div class="profile-section">
+    <!-- <div class="profile-section">
       <h2>Expertise</h2>
-      <p>Bee Keeper with two years experience keeping and teaching</p>
-      <p>Software developer building a better chicken coop</p>
-    </div>
+      <p>{{ user.Expertise }}</p>
+    </div> -->
 
     <div class="profile-section">
       <h2>Contact</h2>
       <div class="btn-group open">
-        <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
-        <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
-        <a class="btn btn-default" onclick="copyToClipboard()" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span id="textToCopy"> m.ehler@comcast.net </span></a>        
+        <a class="btn btn-default" href="{{ user.LinkedIn }}"><i class="fa fa-linkedin-square"></i></a>
+        <a class="btn btn-default" href="{{ user.GitHub }}"><i class="fa fa-github"></i></a>
+        <a class="btn btn-default" onclick="copyToClipboard()" data-toggle="collapse" href="#"><i class="fa fa-envelope-o"></i><span id="textToCopy">{{ user.Email }}</span></a>        
       </div>
     </div>
   </div>

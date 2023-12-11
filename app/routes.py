@@ -1,8 +1,7 @@
 from flask import render_template, flash, redirect, url_for, jsonify, request
 from app import app, db, map, geocoder, forms, bcrypt
 from app.models import Ufarms, Users
-# from app.forms import SignUpForm
-import random
+from werkzeug.utils import secure_filename
 from config import Config
 from markupsafe import Markup
 
@@ -17,21 +16,6 @@ def index():
 def home():    
     return render_template('home.html', template_folder=Config.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
 
-
-
-# @app.route('/signup', methods=['GET', 'POST'])
-# def signup():
-#     form = forms.RegisterForm()
-#     if form.validate_on_submit():
-#         first_name = form['first_name']
-#         last_name = form['last_name']
-#         email = form['email']
-        
-#         flash(f'Let\'s grow together, {form.first_name}')
-#         return redirect(url_for('home'))
-    
-#     # Render the signup page template for GET requests
-#     return render_template('signup.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup')
 
 @app.route('/login', methods=['GET', 'POST'])
 def register():
@@ -56,11 +40,37 @@ def register():
 
         # Redirect the user to the login page after signup
         flash(f'Let\'s grow together, {username}')
-        return redirect(url_for('home'))
+        return redirect(url_for('welcome', username=username))
 
     # Render the signup page template for GET requests
     return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup', form=form)
 
+@app.route('/welcome/<username>', methods=['GET', 'POST'])
+def welcome(username):
+    form = forms.ProfileForm()
+
+    if form.validate_on_submit():
+        # Update the user with additional information
+        user = Users.query.filter_by(Username=username).first_or_404()
+        user.Fname = form.fname.data
+        user.Lname = form.lname.data
+        user.Bio = form.bio.data
+
+        # Handle profile picture upload
+        if form.profile_pic.data:
+            # Save the uploaded file to a designated folder
+            filename = secure_filename(form.profile_pic.data.filename)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            form.profile_pic.data.save(file_path)
+            user.ProfilePic = file_path
+
+        # Save the changes to the database
+        db.session.commit()
+
+        # Redirect to the user's profile page
+        return redirect(url_for('user_profile', username=username))
+
+    return render_template('welcome.html', form=form)
 
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
@@ -107,16 +117,11 @@ def redirect_about():
     return redirect(url_for('about'))
 
 
-
 # directories
-@app.route('/ufarmers', methods=['GET', 'POST'])
-def ufarmers():
-    return render_template('ufarmers.html', title='Test Profile Directory Page')
-
-# future route ufarmers/<hash or username>
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
-    return render_template('profile.html', title='Test Profile Page')
+@app.route('/ufarmers/<username>')
+def user_profile(username):
+    user = Users.query.filter_by(Username=username).first_or_404()
+    return render_template('profile.html', user=user)
 
 
 #  todo findme - placeholder for futuer listed directories
@@ -124,6 +129,7 @@ def profile():
 def ufarms():
     return render_template('ufarms.html', title='Test Farm Page')
 
+# todo findme - placeholder for futer farms profile page
 @app.route('/ufarm', methods=['GET', 'POST'])
 def ufarm():
     return render_template('ufarm.html', title='Test Farm Page')
