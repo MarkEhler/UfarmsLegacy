@@ -1,16 +1,21 @@
-CREATE TABLE users (
+CREATE TABLE Users (
   UserID bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
   PublicID varchar(12) DEFAULT NULL UNIQUE,
-  Name varchar(255) NOT NULL UNIQUE,
+  Username varchar(255) NOT NULL UNIQUE,
+  Fname varchar(128) DEFAULT NULL,
+  Lname varchar(128) DEFAULT NULL,
+  password varchar(128) NOT NULL,
   IsActive BOOLEAN DEFAULT True,
   AddressStr varchar(255) UNIQUE,
-  Contact varchar(255) UNIQUE,
-  Host BOOLEAN DEFAULT False,
+  Email varchar(255) UNIQUE,
+  IsHost BOOLEAN DEFAULT False,
   Bio varchar(255),
+  IsAdmin BOOLEAN DEFAULT False,
+  ProfilePic varchar(255),
   CreatedAt datetime DEFAULT CURRENT_TIMESTAMP,
   UpdatedAt datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
-INSERT INTO users (Name, AddressStr, Contact, Bio)
-VALUES ('John Doe', '123 Main St, Burlington, VT', 'john.doe@example.com', 'A short bio about John Doe');
+-- test insert
+-- INSERT INTO users (Name, AddressStr, Email, Bio)
+-- VALUES ('John Doe', '123 Main St, Burlington, VT', 'john.doe@example.com', 'A short bio about John Doe');

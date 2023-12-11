@@ -1,8 +1,9 @@
-from app import db
+from app import db, bcrypt
 from sqlalchemy import Column 
 from django.db import models
-import string
-import random
+import string, random
+from sqlalchemy.ext.hybrid import hybrid_property
+
 ## used by cookiecutter app
 # from flask_login import UserMixin
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -24,7 +25,7 @@ class Ufarms(db.Model):
     UfarmID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicFarmID = db.Column(db.String(12), unique=True, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.UserID'), nullable=True) #foreign keys not supported on planet scale.  users is parent table.
-    Name = db.Column(db.String(255), unique=True)
+    FarmName = db.Column(db.String(255), unique=True)
     IsActive = db.Column(db.Boolean)
     AddressStr = db.Column(db.String(255), unique=True)
     Contact = db.Column(db.String(255), unique=True)
@@ -35,18 +36,18 @@ class Ufarms(db.Model):
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     objects = UserManager()
-
-    def save(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(Ufarms, self).__init__(*args, **kwargs)
         if not self.PublicFarmID:
             self.PublicFarmID = self.objects.generate_public_id()
-        super().save(*args, **kwargs)
+
 
     def serialize(self):
         return {
             'UfarmID': self.UfarmID,
             'PublicFarmID': self.PublicFarmID,
             'UserID': self.UserID,
-            'Name': self.Name,
+            'FarmName': self.FarmName,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
             'Contact': self.Contact,
@@ -67,35 +68,40 @@ class Users(db.Model):
     UserID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     PublicID = db.Column(db.String(12), unique=True, nullable=True)
     Username = db.Column(db.String(30), unique=True)
-    FirstName = Column(db.String(30), nullable=True)
-    LastName = Column(db.String(30), nullable=True)
-    _password = Column("password", db.LargeBinary(128), nullable=True)
+    Fname = db.Column(db.String(30), nullable=True)
+    Lname = db.Column(db.String(30), nullable=True)
+    _password = db.Column("password", db.LargeBinary(128), nullable=True)
     IsActive = db.Column(db.Boolean, default=True)
     AddressStr = db.Column(db.String(255), unique=True)
-    Contact = db.Column(db.String(255), unique=True)
-    Host = db.Column(db.Boolean, default=False)
+    Email = db.Column(db.String(255), unique=True)
     Bio = db.Column(db.String(255), unique=True, nullable=True)
+    IsHost = db.Column(db.Boolean(), default=False)
+    IsAdmin = db.Column(db.Boolean(), default=False)
+    ProfilePic = db.Column(db.String(255), unique=True, nullable=True)
     CreatedAt = db.Column(db.DateTime, server_default=db.func.now())
     UpdatedAt = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
-    IsAdmin = Column(db.Boolean(), default=False)
+    
 
     objects = UserManager()
 
-    def save(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
+        super(Users, self).__init__(*args, **kwargs)
         if not self.PublicID:
             self.PublicID = self.objects.generate_public_id()
-        super().save(*args, **kwargs)
 
     def serialize(self):
         return {
             'UserID': self.UserID,
             'PublicID': self.PublicID,
-            'Name': self.Name,
+            'Username': self.Username,
+            'Fname': self.Fname,
+            'Lname': self.Lname,
+            'password': self.password,
             'IsActive': self.IsActive,
             'AddressStr': self.AddressStr,
-            'Contact': self.Contact,
-            'Host': self.Host,
+            'Email': self.Email,
             'Bio': self.Bio,
+            'IsHost': self.IsHost,
             'CreatedAt': self.CreatedAt,
             'UpdatedAt': self.UpdatedAt
         }
@@ -107,6 +113,9 @@ class Users(db.Model):
     def password(self):
         """Hashed password."""
         return self._password
+    
+    def get_profile_url(self):
+        return f"/profile/{self.Username}"
 
     @password.setter
     def password(self, value):
@@ -115,9 +124,9 @@ class Users(db.Model):
 
     def check_password(self, value):
         """Check password."""
-        return bcrypt.check_password_hash(self._password, value)
+        return bcrypt.check_password_hash(self.password, value)
 
     @property
     def full_name(self):
         """Full user name."""
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.Fname} {self.Lname}"
