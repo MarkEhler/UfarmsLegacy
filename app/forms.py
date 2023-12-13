@@ -2,7 +2,7 @@ from flask import redirect
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SubmitField, RadioField, DateField, PasswordField, TextAreaField
-from wtforms.validators import DataRequired, Length, EqualTo #Email
+from wtforms.validators import DataRequired, Length, EqualTo, Email
 from app.models import Users
 from app import bcrypt
 # templates for user input fields - these variables will be used to call the APIs and web scrape
@@ -48,7 +48,7 @@ class RegisterForm(FlaskForm):
     """Register form."""
 
     username = StringField("Username", validators=[DataRequired(), Length(min=3, max=25)])
-    # email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
+    email = StringField("Email", validators=[DataRequired(), Email(), Length(min=6, max=40)])
     password = PasswordField("Password", validators=[DataRequired(), Length(min=6, max=40)])
     confirm_password = PasswordField(
         "Confirm Password",
@@ -64,10 +64,13 @@ class RegisterForm(FlaskForm):
         if user:
             self.username.errors.append("Username already registered")
             return False
-        # user = Users.query.filter_by(Email=self.email.data).first()
-        # if user:
-        #     self.email.errors.append("Email already registered")
-        #     return False
+        # todo find a smarter method for email validation? or at least one that's compatible with Heroku
+        user = Users.query.filter_by(Email=self.email.data).first()
+        if user:
+            self.email.errors.append("Email already registered")
+            return False
+# findme when the above block is worked out -- remember to clean email-validator==2.1.0.post1 from requirements.txt
+
         # Update the user model with hashed password
         self.user = Users(
             Username=self.username.data,
@@ -95,11 +98,5 @@ class Search_Farms(FlaskForm):
     location = StringField('Address',
                         validators=[DataRequired(), Length(min=5, max=30)],
                         render_kw={'placeholder': '55555 Sleighbell St. Northpole, NP 00001'}) 
-    date = DateField('Start Date', format = '%m/%d/%Y', description = 'Time',
-                        render_kw={'placeholder': 'Format: mm-dd-YYYY'},
-                        validators=[Length(min=10, max=10)]) 
-    time_span = RadioField('Time Span', 
-                        choices=[('1','1 day'),('3','3 days'), ('7', '7 days')],
-                        default= '1', validators=[DataRequired()]) 
     submit = SubmitField('Look for Sites')
 

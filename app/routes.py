@@ -18,12 +18,14 @@ def home():
 
 
 @app.route('/login', methods=['GET', 'POST'])
+# todo create a/b for if user is tied to an active user session or is acting as a public user
+# large effort as it requires adding session knowledge to site
 def register():
     form = forms.RegisterForm()
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data
-        password = form.password.data  # Use form.password.data to get the password value
+        password = form.password.data
 
         # Hash the user's password for security
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')  # Decode the bytes to string
@@ -41,8 +43,7 @@ def register():
         # Redirect the user to the login page after signup
         flash(f'Let\'s grow together, {username}')
         return redirect(url_for('welcome', username=username))
-
-    # Render the signup page template for GET requests
+    
     return render_template('login.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Email Signup', form=form)
 
 @app.route('/welcome/<username>', methods=['GET', 'POST'])
@@ -57,21 +58,22 @@ def welcome(username):
         user.Bio = form.bio.data
 
         # Handle profile picture upload
+        # todo pics in database? the below section needs reworking
         if form.profile_pic.data:
             # Save the uploaded file to a designated folder
             filename = secure_filename(form.profile_pic.data.filename)
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             form.profile_pic.data.save(file_path)
             user.ProfilePic = file_path
-
-        # Save the changes to the database
+        
         db.session.commit()
 
-        # Redirect to the user's profile page
         return redirect(url_for('user_profile', username=username))
 
     return render_template('welcome.html', form=form)
 
+# for demoing the map.  loads in burlington with the initial canned data
+# and for a default display location should the test map fail
 @app.route('/map', methods=['GET', 'POST'])
 def show_map():
     ufarms_db_table = Ufarms.query.all()
@@ -83,6 +85,10 @@ def show_map():
     else:
         return render_template('formatted_map.html', template_folder=Config.TEMPLATE_PATH, title='Ufarms - Community Agriculture Map')
 
+# for testing the search function
+# the route where all future development should go for
+# n - nearest farm node display
+# 
 @app.route('/testmap', methods=['GET', 'POST'])
 def show_map2():
     if request.method == 'POST':
@@ -145,11 +151,3 @@ def iframe():
 @app.route('/iframe_content')
 def iframe_content():
     return render_template('iframe_content.html')
-
-@app.route('/db_test', methods=['GET'])
-def db_test():
-    ufarms = Ufarms.query.all()
-    # print('printing db cnx debug')
-    # print(ufarms)
-    # return jsonify([item.serialize() for item in ufarms])
-    return render_template('db_test.html', ufarms=ufarms)
