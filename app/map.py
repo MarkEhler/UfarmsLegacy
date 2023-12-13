@@ -3,6 +3,7 @@ import os, base64, random
 from config import Config
 from statistics import mean
 
+
 def get_map(ufarms, coordinates=None, address=None):
     print("Map")
     lats = []
