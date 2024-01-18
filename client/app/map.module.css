@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+
+  background-color: brown;
+  height: 70px;
+}
+.header .logo {
+  margin: 0;
+}
+.header .login {
+  display: block;
+  margin-left: auto;
+}
