@@ -1,3 +1,4 @@
+import RootLayout from "../layout";
 import Link from "next/link";
 
 export const metadata = {
@@ -6,8 +7,8 @@ export const metadata = {
 
 export default function Map() {
   return (
-    <>
+    <RootLayout>
       <Link href="/">Home</Link>
-    </>
+    </RootLayout>
   );
 }

@@ -1,18 +1,15 @@
 import "../styles/global.css";
-import styles from "./map.module.css";
-
-export const metadata = {
-  title: "Home",
-  description: "Welcome to Ufarms",
-};
+import hdr from "./header.module.css";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <title>Ufarms</title>
+      </head>
       <body>
-        <header className={styles.header}>
-          <h1 className={styles.logo}>[Ufarms logo]</h1>
-          <button className={styles.login}>Log In</button>
+        <header className={hdr.header}>
+          <h1 className={hdr.logo}>[Ufarms logo]</h1>
         </header>
 
         {children}

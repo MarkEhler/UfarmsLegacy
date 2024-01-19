@@ -1,28 +1,28 @@
-import HomePage from "./home-page";
+"use client";
 
+import { useState } from "react";
+import loginStyles from "./login-button.module.css";
 import Link from "next/link";
 import RootLayout from "./layout";
-import utilStyles from "../styles/utils.module.css";
+import ModalTemplate from "./components/modal-template";
+import LoginForm from "./components/login-form";
 
 export default function Home() {
+  const [modalShown, setModalShown] = useState(false);
+
   return (
-    <RootLayout home>
+    <RootLayout>
       <Link href="/map">See the Map</Link>
+      <button className={loginStyles.login} onClick={() => setModalShown(true)}>
+        Login
+      </button>
 
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-
-        <ul className={utilStyles.list}>
-          <li>Oh Hey</li>
-        </ul>
-      </section>
-
-      <header>
-        <h1>[Ufarms logo]</h1>
-        <button>Log In</button>
-      </header>
-
-      <Link href="/">Home</Link>
+      <ModalTemplate
+        isOpen={modalShown}
+        closeModal={() => setModalShown(false)}
+      >
+        <LoginForm />
+      </ModalTemplate>
     </RootLayout>
   );
 }
