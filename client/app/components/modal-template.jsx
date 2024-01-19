@@ -10,12 +10,15 @@ export default function ModalTemplate({ isOpen, closeModal, children }) {
   }, [isOpen]);
 
   return createPortal(
-    <dialog ref={dialogRef} onCancel={closeModal} className={modalStyles.modal}>
+    <dialog
+      autofocus
+      ref={dialogRef}
+      onCancel={closeModal}
+      className={modalStyles.modal}
+    >
       {children}
 
-      <button autofocus onClick={closeModal}>
-        Close
-      </button>
+      <button onClick={closeModal}>Close</button>
     </dialog>,
     document.body
   );

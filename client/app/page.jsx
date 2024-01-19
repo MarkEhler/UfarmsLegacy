@@ -6,22 +6,32 @@ import Link from "next/link";
 import RootLayout from "./layout";
 import ModalTemplate from "./components/modal-template";
 import LoginForm from "./components/login-form";
+import UserInfoForm from "./components/user-info-form";
 
 export default function Home() {
-  const [modalShown, setModalShown] = useState(false);
+  const [loginShown, setLoginShown] = useState(true);
+  const [userFormShown, setUserFormShown] = useState(false);
 
   return (
     <RootLayout>
       <Link href="/map">See the Map</Link>
-      <button className={loginStyles.login} onClick={() => setModalShown(true)}>
+      <button className={loginStyles.login} onClick={() => setLoginShown(true)}>
         Login
       </button>
+      <button onClick={() => setUserFormShown(true)}>Show User Form</button>
 
       <ModalTemplate
-        isOpen={modalShown}
-        closeModal={() => setModalShown(false)}
+        isOpen={loginShown}
+        closeModal={() => setLoginShown(false)}
       >
         <LoginForm />
+      </ModalTemplate>
+
+      <ModalTemplate
+        isOpen={userFormShown}
+        closeModal={() => setUserFormShown(false)}
+      >
+        <UserInfoForm />
       </ModalTemplate>
     </RootLayout>
   );
