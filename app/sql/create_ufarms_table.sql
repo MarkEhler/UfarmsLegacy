@@ -4,16 +4,24 @@ CREATE TABLE Ufarms (
     UfarmID INT PRIMARY KEY AUTO_INCREMENT,
     PublicFarmID VARCHAR(12) DEFAULT NULL UNIQUE,
     UserID INT,
-    FarmName VARCHAR(255) UNIQUE,
+    FarmName VARCHAR(25) UNIQUE,
+    FarmDescription VARCHAR(255) DEFAULT NULL,
     IsActive BOOLEAN,
     AddressStr VARCHAR(255) UNIQUE,
-    Contact VARCHAR(255) UNIQUE,
-    Request VARCHAR(255),
+    IsOwner BOOLEAN,
+    Email VARCHAR(255) UNIQUE,
+    Request VARCHAR(255) DEFAULT NULL,
     Privacy_lat FLOAT,
     Privacy_lon FLOAT,
+    SunExposure INT,
+    WaterSource INT,
+    HardinessZone FLOAT,
+    Parking VARCHAR(8),
+    PlaidID VARCHAR(25),
+    FarmPhoto LONGBLOB,  --one of two methods might need blob storage
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
     -- FOREIGN KEY (UserID) REFERENCES users(UserID)
 
 -- Insert Data

@@ -6,11 +6,10 @@ from config import Config
 from markupsafe import Markup
 
 
-
+# findme
 @app.route('/')
 def index():
-    app_directory = app.root_path
-    return render_template('home.html', template_folder=Config.TEMPLATE_PATH, title='Welcome to Ufarms - Community Agriculture Project')
+    return render_template('index.html')  # Change this to match your React app's entry point
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
