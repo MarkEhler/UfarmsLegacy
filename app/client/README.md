@@ -7,7 +7,8 @@ Here's an update about using fetch to dig the Flask framework.  Greek to me xD
 
 
 // Example using fetch
-fetch('/api/data')
+
+fetch('/testmap')
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error('Error:', error));

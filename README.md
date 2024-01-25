@@ -10,12 +10,12 @@
 <h2> Setting up a Local Flask Environment (I used Ubuntu) </h2>
 
 <ul> 
-<li>run `venv` in root directory </li>
-<li>`source bin/activate` </li>
+<li>run `python venv venv` in root directory </li>
+<li>`source venv/bin/activate` </li>
 <li>Git clone this repo </li>
 <li>Change directory to the repo </li>
-<li>Pip install requirements.txt </li>
-<li>Copy paste .flaskenv file from the note </li>
+<li>`pip install -r requirements.txt` </li>
+<li>Copy paste `.flaskenv` file from the note (You do have the note don't you?) </li>
 <li>See that the .crt file exists in your local the path defined in __init__.py(maybe differ for windows and apple users) </li>
 <li> `flask run` in Ufarms directory </li>
 <li>Observe changes on localhost:5000 </li>

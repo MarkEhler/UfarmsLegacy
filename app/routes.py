@@ -6,10 +6,13 @@ from config import Config
 from markupsafe import Markup
 
 
-# findme
+# findme 
 @app.route('/')
 def index():
     return render_template('index.html')  # Change this to match your React app's entry point
+
+
+###
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():    
