@@ -25,8 +25,10 @@
 <li> requpres NPM NODE and Yarn to be installed </li>
 <li> open a second terminal </li>
 <li> navigate to the ufarms-react-client directory</li>
-<li> `yarn run` </li>
+<li> `yarn start` </li>
 <li> Observe changes to your code in real time in the browser that opens </li>
+
+
 <h2> The Verdant Vision </h2>
 <br>
 <br>
