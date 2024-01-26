@@ -7,3 +7,32 @@ dump*
 .flaskenv
 map.2*
 .*
+package.json
+ufarms-venv
+app
+
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+ufarms-react-client/node_modules
+ufarms-react-client/.pnp
+ufarms-react-client.pnp.js
+
+# testing
+ufarms-react-client/coverage
+
+# production
+ufarms-react-client/build
+
+# misc
+ufarms-react-client/.DS_Store
+ufarms-react-client/.env.local
+ufarms-react-client/.env.development.local
+ufarms-react-client/.env.test.local
+ufarms-react-client/.env.production.local
+
+ufarms-react-client/npm-debug.log*
+ufarms-react-client/yarn-debug.log*
+ufarms-react-client/yarn-error.log*
