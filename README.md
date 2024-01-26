@@ -4,7 +4,7 @@
     <li> app/ -- flask package files</li>
     <li> run.py -- init file for flask</li>
     <li> Local Reproduction Steps </li>
-    <li> Additional infor below </li>
+    <li> Additional info below </li>
     <li> <a href="#"> Demo Video - coming soon </a> </li>
 
 <h2> Setting up a Local Flask Environment (I used Ubuntu) </h2>
@@ -18,9 +18,15 @@
 <li>Copy paste `.flaskenv` file from the note (You do have the note don't you?) </li>
 <li>See that the .crt file exists in your local the path defined in __init__.py(maybe differ for windows and apple users) </li>
 <li> `flask run` in Ufarms directory </li>
-<li>Observe changes on localhost:5000 </li>
+<li>Observe requests to the server on localhost:5000 in this terminal </li>
 </ul>
 
+<h2> Set up the Front End </h2>
+<li> requpres NPM NODE and Yarn to be installed </li>
+<li> open a second terminal </li>
+<li> navigate to the ufarms-react-client directory</li>
+<li> `yarn run` </li>
+<li> Observe changes to your code in real time in the browser that opens </li>
 <h2> The Verdant Vision </h2>
 <br>
 <br>

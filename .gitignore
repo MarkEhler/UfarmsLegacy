@@ -7,9 +7,7 @@ dump*
 .flaskenv
 map.2*
 .*
-package.json
-ufarms-venv
-app
+app/__pycache__
 
 
 
