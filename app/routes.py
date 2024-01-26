@@ -1,18 +1,8 @@
-# from flask import render_template, flash, redirect, url_for, jsonify, request
-# from app import app, db, map, geocoder, forms, bcrypt
-# from app.models import Ufarms, Users
-# from werkzeug.utils import secure_filename
-# from config import Config
-# from markupsafe import Markup
+## Legacy routes
 
-import time
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+# @app.route('/time')
+# def get_current_time():
+#     return {'time': time.time()}
 
 # # findme 
 # @app.route('/')

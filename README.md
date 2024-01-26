@@ -7,7 +7,7 @@
     <li> Additional info below </li>
     <li> <a href="#"> Demo Video - coming soon </a> </li>
 
-<h2> Setting up a Local Flask Environment (I used Ubuntu) </h2>
+<h2> Setting up a Local Flask Environment  </h2>
 
 <ul> 
 <li>run `python venv venv` in root directory </li>
