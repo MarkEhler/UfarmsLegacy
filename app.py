@@ -1,16 +1,16 @@
 from flask import Flask
+import time
 from flask.helpers import send_from_directory
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_folder='my-app/build', static_url_path='')
 CORS(app)
 
-@app.route('/api', methods=['GET'])
+@app.route('/time')
 @cross_origin()
-def index():
-    return {
-        "tutorial": "Flask React Heroku"
-    }
+
+def get_current_time():
+    return {'time': time.time()}
 
 @app.route('/')
 def serve():
