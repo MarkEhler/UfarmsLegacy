@@ -12,6 +12,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "heroku-postbuild": "npm install && npm run build",
     "start": "react-scripts start",
     "start-api": "cd api && venv/bin/flask run --no-debugger",
     "build": "react-scripts build",
@@ -36,5 +37,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000/"
+  "proxy": "https://ufarms-9d60c4fe466e.herokuapp.com/"
 }
