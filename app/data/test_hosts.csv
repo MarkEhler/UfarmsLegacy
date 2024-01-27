@@ -1,8 +1,0 @@
-name,host,address1,address2,city,state,zipcode,request,isactive,contact
-Shelburne Farmer's Market,1,Church St,,Shelburne,VT,05482,vendor,TRUE,info@sbpavt.com
-Burlington Farmer's Market,1,345 Pine St Burlington,,Burlington,VT,05401,vendor,TRUE,manager@burlingtonfarmersmarket.org
-City Market / Onion River Co-op,1,82 S Winooski Ave,,Burlington,VT,05401,watering,TRUE,info@citymarket.coop
-Intervale Community Farm,1,232 Intervale Road,,Burlington ,VT,05401,planting,TRUE,info@intervalecommunityfarm.com
-Vermont Community Garden Network,1,1 Mill St,#200,Burlington,VT,05401,building beds,FALSE,garden@vtgardens.org
-Mark's Place,1,102 Quarry hill road,apt 25,South Burlington,VT,05403,space in garden,TRUE,m.ehler@comcast.net
-Mark's Old Place,1,406 South Union st,,Burlington,VT,05401,space in garden,FALSE,m.ehler@comcast.net
