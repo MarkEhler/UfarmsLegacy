@@ -1,0 +1,45 @@
+<!-- floating code for the form box -->
+
+{% extends "layout.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block app_content %}
+    <h1>Enter Location</h1>
+    <form action="{{ url_for('handle_data') }}" method="post">
+<!--         <input type="text" name="projectFilepath"> -->
+        {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.location.label(class="form-control-label") }}
+
+                    {% if form.location.errors %}
+                        {{ form.location(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.location.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.location(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.date.label(class="form-control-label") }}
+                    {% if form.date.errors %}
+                        {{ form.date(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.date.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.date(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+        <p>{{ form.time_span.label }} {{ form.time_span() }}</p>
+            {% for error in form.time_span.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        <p>{{ form.submit(class="btn btn-outline-info") }}</p> 
+
+    </form>
+    <!-- Date : <input type="text" id=date> -->
+{% endblock %}

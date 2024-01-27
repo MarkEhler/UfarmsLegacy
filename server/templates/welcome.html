@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %} Additional Information {% endblock %}
+{% block app_content %}
+    <h1>Welcome {{ username }}</h1>
+        <p>Additional Information</p>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-box">
+            <div class="form-group">
+                {{ form.fname.label }} 
+                {{ form.fname() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.lname.label }} 
+                {{ form.lname() }}
+            </div>
+
+            <div class="form-group">
+                {{ form.bio.label }} 
+                {{ form.bio() }}
+            </div>
+        </div>
+
+        <div class="form-box">
+            <div class="form-group">
+                {{ form.profile_pic.label }} 
+                {{ form.profile_pic() }}
+            </div>
+        </div>
+
+        <div class="form-box">
+            <div class="form-group">
+                {{ form.submit() }}
+            </div>
+        </div>
+    </form>
+{% endblock %}

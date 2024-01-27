@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block app_content %}
+    <!-- enter personal info and links -->
+      <div class="definitions">
+        <h3><b>Community</b></h3><img src="/static/orchard.png" alt="orchard", width="60%", STYLE = "float: right;" />
+        <h5>[ k<i>uh</i>-<b>myoo</b>-ni-tee ]</h5>
+            <b><i>noun</i></b>
+              <p><b>1  A group of people living in the same locality.
+            <br>
+                2  A group of people having the same interests.</b></p>
+            <br>
+            <!--todo make this image inline with the definitions -->
+            <br>
+        <h3><b>Agriculture</b></h3>
+        <h5>[ <b>ag</b>-ri-kuhl-cher ]</h5>
+          <b><i>noun</i>
+          <p>1  The science, art, and business of cultivating soil, producing crops, and raising livestock; farming.</p></b>
+        <br>  
+      </div>
+      <br>
+      <br>
+        <div class="quote">
+          <i class="fa fa-quote-left fa-3x fa-pull-left fa-border" aria-hidden="true"></i>
+          <p>While volunteering in rural Nepal, I learned how agriculture could bring a village together.  We're so connected now but we live disconnected from our world and our neighbors.  This is a project in rediscovering ourselves while tuning in to our surroundings.  I believe that through collective action we can close the gap that has grown between agriculture and community, these two things so essential.  Follow me on this journey.  Let's start by making the map.  </p>
+          <p>--Mark Ehler</p>
+        </div>
+            <div class="container">
+              <div class="row">
+                <div class="col text-center">
+                  <div class="btn-group open">
+                    <a class="btn btn-default" href="https://www.linkedin.com/in/mark-ehler-85052548/"><i class="fa fa-linkedin-square"></i></a>
+                    <a class="btn btn-default" href="https://github.com/MarkEhler"><i class="fa fa-github"></i></a>
+                    <a class="btn btn-default" onclick="redirectToURLAndCopy('redirect_about')" data-toggle="collapse" ><i class="fa fa-envelope-o"></i><span id="textToCopy"> m.ehler@comcast.net </span></a>
+                </div>
+                <div class="col text-center">
+                  <br>
+                  <p> Take a 5 minute survey -- Help this project grow!</p>
+                  <a class="btn btn-success" href="/survey"><i class="fa fa-poll"></i></a>
+              </div>  
+              </div>
+
+            </div> 
+          </div>
+        <br>
+        <br>
+
+        <br>
+        <br>
+        <br>
+<div>
+  <img src="/static/banner.png" alt="planting_trees", width="100%", location = "center">
+</div>
+    </div>
+{% endblock app_content %}

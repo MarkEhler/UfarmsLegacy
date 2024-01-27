@@ -22,7 +22,7 @@ ufarms-react-client.pnp.js
 ufarms-react-client/coverage
 
 # production
-ufarms-react-client/build
+# ufarms-react-client/build
 
 # misc
 ufarms-react-client/.DS_Store

@@ -1,0 +1,28 @@
+<!-- html for the returned form -->
+
+{% extends "layout.html" %}
+{% block app_content %}
+<body>
+    <h1>Database Table Test</h1>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <ul>
+        {% for ufarm in ufarms %}
+        <li>{{ ufarm.Name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
+
+{% endblock app_content %}
+
+

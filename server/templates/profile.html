@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% block title %} User Profile {% endblock %}
+{% block app_content %}
+<head>
+  <style>
+    h1 {
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    #container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    
+    #profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto;
+      display: block;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+
+    
+    .profile-section {
+      margin-bottom: 20px;
+    }
+    
+    .profile-section h2 {
+      margin-top: 0;
+    }
+    
+    .profile-section p {
+      margin-bottom: 10px;
+    }
+    
+    .profile-section:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <img id="profile-image" src="{{ url_for('static', filename='mark_pic.jpg') }}" alt="Profile Image"> 
+    <!-- todo update image as default user image 3 needed he/her/they -->
+    <h1>{{ user.Fname }} {{ user.Lname }}</h1>
+    
+    <div class="profile-section">
+      <h2>About</h2>
+      <p>{{ user.Bio }}</p>
+    </div>
+    
+    <div class="profile-section">
+      <h2>Host Farm</h2>
+      <p>{{ user.IsHost }}</p>
+      <p>{{ user.AddressStr }}</p>
+    </div>
+    
+    <!-- <div class="profile-section">
+      <h2>Expertise</h2>
+        user seasons on Ufarms
+        badges todo
+    </div> -->
+
+    <div class="profile-section">
+      <h2>Contact</h2>
+      <div class="btn-group open">
+        <!-- messaging todo -->
+      </div>
+    </div>
+  </div>
+
+{% endblock app_content %}
