@@ -15,6 +15,7 @@ app/__pycache__
 
 # dependencies
 ufarms-react-client/node_modules
+client/node_modules
 ufarms-react-client/.pnp
 ufarms-react-client.pnp.js
 

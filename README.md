@@ -22,12 +22,11 @@
 </ul>
 
 <h2> Set up the Front End </h2>
-<li> requpres NPM NODE and Yarn to be installed </li>
+<li> requires npm & Node.js and if want, Yarn to be installed </li>
 <li> open a second terminal </li>
-<li> navigate to the ufarms-react-client directory</li>
-<li> `yarn start` </li>
-<li> Observe changes to your code in real time in the browser that opens </li>
-
+<li> `cd client` then `npm install` or update all dependencies with yarn</li>
+<li> `npm run dev` or `yarn start` </li>
+<li> Observe changes to your code in real time on http://localhost:3000 </li>
 
 <h2> The Verdant Vision </h2>
 <br>
@@ -65,6 +64,3 @@
         <a class="btn btn-default" href="https://github.com/MarkEhler"> Github</a>
         <a> <span class="hidden"> m.ehler@comcast.net </span></a>
     </div>
-
-
-

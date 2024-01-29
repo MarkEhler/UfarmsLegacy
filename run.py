@@ -22,7 +22,7 @@ def get_current_time():
 
 
 # ---
-## A draw back of flask is that it requires these sneaky circular-prone imports -- in my experience 90% of the time this is what's causing the error, including the one today -- I think I recall a method for addressing that 
+# # A draw back of flask is that it requires these sneaky circular-prone imports -- in my experience 90% of the time this is what's causing the error, including the one today -- I think I recall a method for addressing that 
 # from app import app
 # from config import Config
 
