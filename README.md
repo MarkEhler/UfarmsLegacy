@@ -1,5 +1,5 @@
 <h1> Ufarms </h1>
-<h2> TOC </h2>
+<h2> ToC </h2>
 <ul>
     <li> app/ -- flask package files</li>
     <li> run.py -- init file for flask</li>
